@@ -7,8 +7,8 @@
     {
       "name": "yunxing",
       "source": {
-        "source": "github",
-        "repository": "raptoravis/yunxing"
+        "source": "local",
+        "path": "."
       },
       "policy": {
         "installation": "AVAILABLE",

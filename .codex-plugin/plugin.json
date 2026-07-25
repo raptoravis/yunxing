@@ -6,8 +6,6 @@
     "name": "raptoravis",
     "url": "https://github.com/raptoravis"
   },
-  "homepage": "https://github.com/raptoravis/yunxing",
-  "repository": "https://github.com/raptoravis/yunxing",
   "license": "MIT",
   "keywords": [
     "engineering",
@@ -43,5 +41,12 @@
     "./skills/productivity/handoff",
     "./skills/productivity/teach",
     "./skills/productivity/writing-great-skills"
-  ]
+  ],
+  "interface": {
+    "displayName": "Yunxing Skills",
+    "category": "Engineering",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": ["Ask which skill fits your situation", "Use /ask-matt to find the right skill"],
+    "brandColor": "#6366f1"
+  }
 }

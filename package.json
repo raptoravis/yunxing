@@ -1,11 +1,11 @@
 {
-  "name": "mattpocock-skills",
+  "name": "yunxing",
   "version": "1.1.0",
   "private": true,
-  "description": "Matt Pocock's agent skills for real engineering",
+  "description": "Yunxing agent skills — forked from mattpocock/skills",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattpocock/skills"
+    "url": "https://github.com/raptoravis/yunxing"
   },
   "license": "MIT",
   "scripts": {

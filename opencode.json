@@ -1,0 +1,8 @@
+{
+  "skills": {
+    "paths": [
+      "./skills/engineering",
+      "./skills/productivity"
+    ]
+  }
+}

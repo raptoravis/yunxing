@@ -1,0 +1,20 @@
+{
+  "name": "yunxing",
+  "interface": {
+    "displayName": "Yunxing Skills"
+  },
+  "plugins": [
+    {
+      "name": "yunxing",
+      "source": {
+        "source": "github",
+        "repository": "raptoravis/yunxing"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Engineering"
+    }
+  ]
+}

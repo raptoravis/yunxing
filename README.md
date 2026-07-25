@@ -39,23 +39,34 @@ npx skills@latest add mattpocock/skills
 
 4. Bam - you're ready to go.
 
-## Install as a Claude Code plugin
+## Install as a native plugin
 
-Prefer a plug-and-play install you don't maintain by hand? These skills also ship as a native [Claude Code plugin](https://code.claude.com/docs/en/plugins). Instead of copying editable files into your repo, the plugin installs the whole skill set as a managed bundle that updates when I ship a new version — you subscribe rather than fork.
+Prefer a plug-and-play install you don't maintain by hand? These skills also ship as a native plugin for Claude Code, Codex, and OpenCode. Instead of copying editable files into your repo, the plugin installs the whole skill set as a managed bundle that updates when I ship a new version — you subscribe rather than fork.
 
-Inside Claude Code:
+### Claude Code
 
 ```
-/plugin marketplace add mattpocock/skills
-/plugin install mattpocock-skills@mattpocock
+/plugin marketplace add raptoravis/yunxing
+/plugin install yunxing@yunxing
 ```
 
 Or from your shell:
 
 ```bash
-claude plugin marketplace add mattpocock/skills
-claude plugin install mattpocock-skills@mattpocock
+claude plugin marketplace add raptoravis/yunxing
+claude plugin install yunxing@yunxing
 ```
+
+### Codex
+
+```bash
+codex plugin marketplace add raptoravis/yunxing
+codex plugin add yunxing@yunxing
+```
+
+### OpenCode
+
+OpenCode auto-discovers skills from `.claude/skills/`, `.agents/skills/`, and `.opencode/skills/`. If you installed via [skills.sh](https://skills.sh/mattpocock/skills), the skills are already linked. Alternatively, copy the `opencode.json` from this repo to your project — it points OpenCode at the promoted skill directories.
 
 Then run `/setup-matt-pocock-skills` once per repo, exactly as in the quickstart above.
 
@@ -64,7 +75,7 @@ Two ways to install, two philosophies:
 - **[skills.sh](https://skills.sh/mattpocock/skills)** copies the skills into your project so you can hack on them and make them your own.
 - **The plugin** keeps them as a read-only, always-current bundle you don't edit — best when you just want my set to work and follow along as it evolves.
 
-> Using Codex or another agent? The [skills.sh installer](https://skills.sh/mattpocock/skills) already installs these skills into Codex and other Agent-Skills-standard harnesses today. A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+> Using Codex, OpenCode, or another agent? The [skills.sh installer](https://skills.sh/mattpocock/skills) works across all Agent-Skills-standard harnesses. Codex also has a native plugin — see [Install as a native plugin](#install-as-a-native-plugin) above. OpenCode auto-discovers the Claude/Agents skill directories without extra config.
 
 ## Why These Skills Exist
 
@@ -177,6 +188,7 @@ Skills I use daily for code work.
 **User-invoked**
 
 - **[ask-matt](./skills/engineering/ask-matt/SKILL.md)** — Ask which skill or flow fits your situation. A router over the user-invoked skills in this repo.
+- **[new-raw](./skills/engineering/new-raw/SKILL.md)** — Capture a raw requirement verbatim — no clarification, no alignment. Feeds into `/grill-with-docs` and `/to-spec`.
 - **[grill-with-docs](./skills/engineering/grill-with-docs/SKILL.md)** — Grilling session that also builds your project's domain model, sharpening terminology and updating `CONTEXT.md` and ADRs inline.
 - **[triage](./skills/engineering/triage/SKILL.md)** — Move issues through a state machine of triage roles.
 - **[improve-codebase-architecture](./skills/engineering/improve-codebase-architecture/SKILL.md)** — Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
@@ -196,6 +208,7 @@ Skills I use daily for code work.
 - **[codebase-design](./skills/engineering/codebase-design/SKILL.md)** — Shared discipline and vocabulary for designing deep modules: a lot of behaviour behind a small interface, placed at a clean seam, testable through that interface.
 - **[code-review](./skills/engineering/code-review/SKILL.md)** — Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline?) and **Spec** (does it faithfully implement the originating issue/PRD?), run as parallel sub-agents so neither pollutes the other.
 - **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** — Work through an in-progress git merge or rebase conflict hunk by hunk, resolving by intent traced to each side's primary source, then finish the operation — never `--abort`.
+- **[vision](./skills/engineering/vision/SKILL.md)** — Call vision models (Doubao, Qwen, OpenAI, SiliconFlow, or any OpenAI-compatible endpoint) to analyze images — screenshots, UI layouts, diagrams, charts, mockups. Bridges the gap for text-only base models like DeepSeek.
 
 ### Productivity
 

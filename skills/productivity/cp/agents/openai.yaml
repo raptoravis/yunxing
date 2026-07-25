@@ -1,0 +1,5 @@
+interface:
+  display_name: "Commit & Push"
+  short_description: "Commit all changes, push, auto-handle remote-ahead and merge conflicts"
+policy:
+  allow_implicit_invocation: false

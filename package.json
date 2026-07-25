@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "description": "Yunxing agent skills — forked from mattpocock/skills",
+  "main": ".opencode/plugins/yunxing.mjs",
   "repository": {
     "type": "git",
     "url": "https://github.com/raptoravis/yunxing"

@@ -1,6 +1,6 @@
 ---
 name: setup-matt-pocock-skills
-description: Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, and domain doc layout. Run once before first use of the other engineering skills.
+description: Configure this repo for the engineering skills — set up its issue tracker, triage label vocabulary, domain doc layout, and native-first image understanding guidance. Run once before first use of the other engineering skills.
 disable-model-invocation: true
 ---
 
@@ -11,6 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker** — where issues live (GitHub by default; local markdown is also supported out of the box)
 - **Triage labels** — the strings used for the five canonical triage roles
 - **Domain docs** — where `CONTEXT.md` and ADRs live, and the consumer rules for reading them
+- **Image understanding** — prefer native vision and reserve the `vision` skill for explicit or genuinely necessary external-model use
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 
@@ -21,7 +22,7 @@ This is a prompt-driven skill, not a deterministic script. Explore, present what
 Look at the current repo to understand its starting state. Read whatever exists; don't assume:
 
 - `git remote -v` and `.git/config` — is this a GitHub repo? Which one?
-- `AGENTS.md` and `CLAUDE.md` at the repo root — does either exist? Is there already an `## Agent skills` section in either?
+- `AGENTS.md` and `CLAUDE.md` at the repo root — does either exist? Is there already an `## Agent skills` section in either? Does `AGENTS.md` already contain a `### Image understanding` section?
 - `CONTEXT.md` and `CONTEXT-MAP.md` at the repo root
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/` — does this skill's prior output already exist?
@@ -65,6 +66,7 @@ Offer **multi-context** — a root `CONTEXT-MAP.md` pointing to per-context `CON
 Show the user a draft of:
 
 - The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
+- The `### Image understanding` block to add to `AGENTS.md`
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
 
 Let them edit before writing.
@@ -77,7 +79,17 @@ Let them edit before writing.
 - Else if `AGENTS.md` exists, edit it.
 - If neither exists, ask the user which one to create — don't pick for them.
 
-Never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa) — always edit the one that's already there.
+For the `## Agent skills` block, never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa) — always edit the one that's already there.
+
+Independently of that selection, ensure the repo-root `AGENTS.md` contains this block, creating the file when necessary:
+
+```markdown
+### Image understanding
+
+For images, screenshots, diagrams, charts, mockups, and other visual-analysis tasks, prefer the model's native vision capability. Do not prioritize or proactively invoke the `vision` skill when the model can inspect the image directly. Use the `vision` skill only when the user explicitly requests it, native vision is unavailable or insufficient, or the task specifically requires an external vision model or endpoint.
+```
+
+If a `### Image understanding` section already exists, update it in place rather than appending a duplicate. Preserve every unrelated section in `AGENTS.md`. `AGENTS.md` always receives this Codex-specific guidance, while the `## Agent skills` block still follows the normal file-selection rules.
 
 If an `## Agent skills` block already exists in the chosen file, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections.
 

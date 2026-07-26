@@ -76,4 +76,4 @@ Off the main flow entirely.
 
 ## Precondition
 
-**`/setup-matt-pocock-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, doc layout, and native-first image understanding guidance the other skills assume. Custom issue trackers also work.
+**`/setup-matt-pocock-skills`** — run before your first engineering flow to configure the issue tracker, triage labels, doc layout, and shared Claude/Codex guidance the other skills assume. It keeps the full rules in `AGENTS.md`, with `CLAUDE.md` importing them through `@AGENTS.md`. Custom issue trackers also work.

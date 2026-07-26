@@ -12,7 +12,7 @@ npx skills update setup-matt-pocock-skills
 
 ## What it does
 
-`setup-matt-pocock-skills` teaches one repo how the engineering skills should behave in it — where issues live, what the triage labels are called, where the domain docs sit, and how agents should approach visual analysis — and records those answers as **config** the other skills read.
+`setup-matt-pocock-skills` teaches one repo how the engineering skills should behave in it — where issues live, what the triage labels are called, where the domain docs sit, and how agents should approach visual analysis — and records those answers as **config** the other skills read. It keeps the complete shared instructions in `AGENTS.md`, with `CLAUDE.md` importing that file through `@AGENTS.md`, so Codex and Claude consume the same rules.
 
 It writes config, it does not hard-code behaviour. The engineering chain assumes three files under `docs/agents/` exist; this skill is the one-time bootstrap that produces them, discovered from your actual repo (`git remote`, existing labels, existing `CONTEXT.md`) and confirmed with you rather than guessed. It is prompt-driven — explore, present what it found, confirm, then write — not a deterministic scaffold.
 
@@ -30,11 +30,11 @@ It leads each with a recommended answer you can accept in a word, and skips what
 - **Triage labels** — asked only if the `triage` skill is installed, and then just: keep the default labels (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`)? Say no only if your tracker already uses other names, so `triage` applies real ones instead of creating duplicates.
 - **Domain docs** — assumed single-context (one `CONTEXT.md` + `docs/adr/` at the root), which fits almost every repo; it only raises a multi-context map when it spots monorepo signals.
 
-The output is a set of files under `docs/agents/` — `issue-tracker.md`, `domain.md`, and `triage-labels.md` when `triage` is installed — plus an `## Agent skills` block pointing to them in whichever of `CLAUDE.md` / `AGENTS.md` the repo already uses. It also ensures `AGENTS.md` contains native-first image-understanding guidance: use the model's own vision when it can inspect an image, and reserve the `vision` skill for explicit requests, insufficient native capability, or tasks that require an external endpoint. Those files are the shared substrate the rest of the toolkit stands on.
+The output is a set of files under `docs/agents/` — `issue-tracker.md`, `domain.md`, and `triage-labels.md` when `triage` is installed — plus an `AGENTS.md` that contains the repo's complete instructions and points to those files. `CLAUDE.md` contains only `@AGENTS.md`, making the canonical guidance available to both harnesses without duplication. The shared instructions also contain native-first image-understanding guidance: use the model's own vision when it can inspect an image, and reserve the `vision` skill for explicit requests, insufficient native capability, or tasks that require an external endpoint.
 
 ## It's working if
 
-- `issue-tracker.md` and `domain.md` land under `docs/agents/` (plus `triage-labels.md` when `triage` is installed), an `## Agent skills` section appears in your `CLAUDE.md` or `AGENTS.md`, and `AGENTS.md` contains one `### Image understanding` section.
+- `issue-tracker.md` and `domain.md` land under `docs/agents/` (plus `triage-labels.md` when `triage` is installed), `AGENTS.md` contains one `## Agent skills` section and one `### Image understanding` section, and `CLAUDE.md` contains only the `@AGENTS.md` import.
 - The tracker it proposes matches your real `git remote`, and the labels match strings that already exist in your repo.
 - Afterwards, `triage` and `to-tickets` act on the right place with the right labels instead of asking or guessing.
 

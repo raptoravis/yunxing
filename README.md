@@ -22,28 +22,16 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 [Sign Up To The Newsletter](https://www.aihero.dev/s/skills-newsletter)
 
-## Quickstart (30-second setup)
+## Installation (30-second setup)
 
-1. Run the skills.sh installer:
+Two ways in, two philosophies. **The native plugin integrations** install the whole set as a managed bundle that updates when a new version ships — you subscribe rather than fork. **[skills.sh](https://skills.sh/mattpocock/skills)** copies editable skill files into your project, so you can hack on them and make them your own. Pick one — installing both leaves you with every skill twice.
 
-```bash
-npx skills@latest add mattpocock/skills
-```
+### 1. Get the skills
 
-2. Pick the skills you want, and which coding agents you want to install them on. **Make sure you select `/setup-matt-pocock-skills`**.
+<details>
+<summary><strong>Claude Code</strong></summary>
 
-3. Run `/setup-matt-pocock-skills` in your agent. It will:
-   - Ask you which issue tracker you want to use (GitHub, Linear, or local files)
-   - Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
-   - Ask you where you want to save any docs we create
-
-4. Bam - you're ready to go.
-
-## Install as a native plugin
-
-Prefer a plug-and-play install you don't maintain by hand? These skills also ship as a native plugin for Claude Code, Codex, and OpenCode. Instead of copying editable files into your repo, the plugin installs the whole skill set as a managed bundle that updates when I ship a new version — you subscribe rather than fork.
-
-### Claude Code
+Inside Claude Code:
 
 ```
 /plugin marketplace add raptoravis/yunxing
@@ -57,25 +45,49 @@ claude plugin marketplace add raptoravis/yunxing
 claude plugin install yunxing@yunxing
 ```
 
-### Codex
+</details>
+
+<details>
+<summary><strong>Codex</strong></summary>
 
 ```bash
 codex plugin marketplace add raptoravis/yunxing
 codex plugin add yunxing@yunxing
 ```
 
-### OpenCode
+</details>
+
+<details>
+<summary><strong>OpenCode</strong></summary>
 
 OpenCode auto-discovers skills from `.claude/skills/`, `.agents/skills/`, and `.opencode/skills/`. If you installed via [skills.sh](https://skills.sh/mattpocock/skills), the skills are already linked. Alternatively, copy the `opencode.json` from this repo to your project — it points OpenCode at the promoted skill directories.
 
-Then run `/setup-matt-pocock-skills` once per repo, exactly as in the quickstart above.
+</details>
 
-Two ways to install, two philosophies:
+<details>
+<summary><strong>For tinkerers and other agents</strong></summary>
 
-- **[skills.sh](https://skills.sh/mattpocock/skills)** copies the skills into your project so you can hack on them and make them your own.
-- **The plugin** keeps them as a read-only, always-current bundle you don't edit — best when you just want my set to work and follow along as it evolves.
+Use the skills.sh installer on any Agent Skills-compatible harness:
 
-> Using Codex, OpenCode, or another agent? The [skills.sh installer](https://skills.sh/mattpocock/skills) works across all Agent-Skills-standard harnesses. Codex also has a native plugin — see [Install as a native plugin](#install-as-a-native-plugin) above. OpenCode auto-discovers the Claude/Agents skill directories without extra config.
+```bash
+npx skills@latest add mattpocock/skills
+```
+
+Pick the skills you want, and which coding agents to install them on. **The installer lets you choose which skills to take — make sure `setup-matt-pocock-skills` is one of them.**
+
+It writes the skills into your repo as ordinary files you own and can edit. Nothing updates behind your back; pull the latest changes when you want them with `npx skills update`.
+
+</details>
+
+### 2. Run `/setup-matt-pocock-skills`
+
+In your agent, run it once per repo. It will:
+
+- Ask you which issue tracker you want to use (GitHub, Linear, or local files)
+- Ask you what labels you apply to tickets when you triage them (`/triage` uses labels)
+- Ask you where you want to save any docs we create
+
+### 3. Bam - you're ready to go.
 
 ## Why These Skills Exist
 

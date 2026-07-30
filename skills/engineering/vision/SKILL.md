@@ -1,11 +1,16 @@
 ---
 name: vision
-description: Call vision models (Doubao/ByteDance Volcengine Ark, Qwen, OpenAI, SiliconFlow, or any OpenAI-compatible endpoint) to analyze images. Use when you need to understand screenshots, UI layouts, diagrams, charts, mockups, or any image content — especially valuable on text-only base models like DeepSeek that cannot see images natively. Supports png, jpg, jpeg, webp, gif. Reads API keys from environment variables or ~/.env. Use proactively before reading code to infer layout problems, and for visual regression, design-spec comparison, and accessibility checks.
+description: Call a user-selected external vision provider (Doubao/ByteDance Volcengine Ark, Qwen, OpenAI, SiliconFlow, or any OpenAI-compatible endpoint) to analyze images.
+disable-model-invocation: true
 ---
 
 # vision
 
-Multi-provider vision tool. Feed it a prompt + image path, get back a text description of the image. Bridges the gap for text-only base models (e.g. DeepSeek) that cannot see images natively, and gives multimodal models a cheaper/faster alternate vision path.
+Multi-provider external vision tool. Feed it a prompt + image path, get back a text description of the image. Use it when the user explicitly invokes `/vision` to select an external vision model or endpoint.
+
+## Invocation boundary
+
+Do not invoke this skill automatically for screenshots, UI layouts, diagrams, charts, mockups, or other images. When the current model can inspect an image directly, use its native vision capability instead. Run the external provider only after the user explicitly invokes this skill.
 
 ## Quick start
 
@@ -44,7 +49,7 @@ VISION_PROVIDER=qwen
 
 ## Optional: one-shot setup script
 
-A cross-platform setup helper lives at `scripts/setup.sh` / `scripts/setup.ps1` (pick the one for the current OS). It does a dependency smoke test by default, and can optionally inject the **frontend UI-check flow** into your global `~/.claude/CLAUDE.md` so it applies to every session (not just when this skill triggers).
+A cross-platform setup helper lives at `scripts/setup.sh` / `scripts/setup.ps1` (pick the one for the current OS). It does a dependency smoke test by default, and can optionally inject the **external frontend UI-check flow** into your global `~/.claude/CLAUDE.md` for sessions where the user explicitly invokes this skill.
 
 ```bash
 # macOS / Linux / Git Bash
@@ -118,9 +123,11 @@ QWEN_VISION_MODEL=qvq-max uv run "${SKILL_DIR}/scripts/vision.py" -p qwen "diagr
 uv run "${SKILL_DIR}/scripts/vision.py" -p openai "after.png" "Compare with app design spec, flag differences."
 ```
 
-## Frontend UI / layout checking flow (mandatory)
+## External frontend UI / layout checking flow
 
-When checking a frontend page's layout or UI, **do not** infer layout problems by reading code line by line. Drive the real rendered page and analyze screenshots with this skill:
+Run this flow only after the user explicitly invokes `/vision`. For ordinary frontend layout and UI tasks, use the current model's native vision capability instead.
+
+When using the requested external provider, do not infer layout problems by reading code line by line. Drive the real rendered page and analyze screenshots with this skill:
 
 1. Ensure the dev server is running; obtain the page URL.
 2. Capture screenshots covering all content (use `browser-harness`, `agent-browser`, Playwright, or the platform's screenshot tool):

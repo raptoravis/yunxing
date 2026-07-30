@@ -1,0 +1,6 @@
+interface:
+  display_name: "External Vision"
+  short_description: "Analyze images with an external vision provider"
+  default_prompt: "Use $vision to analyze this image with my configured external vision provider."
+policy:
+  allow_implicit_invocation: false

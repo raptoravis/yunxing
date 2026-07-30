@@ -1,10 +1,10 @@
-## 前端 UI 视觉检查流程（vision skill）
+## 外部前端 UI 视觉检查流程（vision skill）
 
-检查前端页面布局 / UI 时，**禁止**仅靠阅读代码推断布局问题，必须用截图 + 视觉模型分析实际渲染：
+默认使用当前模型的原生视觉能力分析截图。只有用户明确调用 `/vision`、要求使用已配置的外部视觉模型时，才执行以下流程：
 
 1. 确保 dev server 已启动，获取页面 URL。
 2. 截图覆盖全部内容（用 browser-harness / agent-browser / Playwright 或平台截图工具）：打开页面 → 等待加载 → 等约 2s 渲染 → 全页截图 → 滚动到 2-3 个不同位置各再截一张。
-3. 每张截图用 `vision` skill 分析：
+3. 每张截图用用户指定的外部 `vision` provider 分析：
    ```bash
    uv run "${CLAUDE_SKILL_DIR}/scripts/vision.py" "shot.png" "分析布局问题：对齐、间距、溢出、留白、截断、空白区域、对比度、响应式"
    ```

@@ -1,6 +1,6 @@
 {
   "name": "yunxing",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Yunxing agent skills — grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
   "author": {
     "name": "raptoravis",
@@ -36,12 +36,15 @@
     "./skills/engineering/codebase-design",
     "./skills/engineering/code-review",
     "./skills/engineering/resolving-merge-conflicts",
+    "./skills/engineering/wizard",
     "./skills/engineering/vision",
     "./skills/productivity/grill-me",
     "./skills/productivity/grilling",
     "./skills/productivity/handoff",
     "./skills/productivity/teach",
-    "./skills/productivity/writing-great-skills",
+    "./skills/productivity/to-questionnaire",
+    "./skills/productivity/wait-what",
+    "./skills/productivity/writing-for-agents",
     "./skills/productivity/cp"
   ],
   "interface": {

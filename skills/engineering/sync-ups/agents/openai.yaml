@@ -1,0 +1,5 @@
+interface:
+  display_name: "Sync Upstream"
+  short_description: "Merge incremental upstream skill changes"
+policy:
+  allow_implicit_invocation: false

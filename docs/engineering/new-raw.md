@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add mattpocock/skills --skill=new-raw
-```
-
-```bash
-npx skills update new-raw
-```
-
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/new-raw)
-
 ## What it does
 
 `new-raw` captures a requirement, idea, or problem statement **exactly as you type it** — verbatim, with no clarifying questions, no rewording, no scope negotiation. It creates a **GitHub (or GitLab) issue** by default so you can paste images, screenshots, mockups, and diagrams directly into it, or falls back to a local markdown file when no tracker is configured.
@@ -42,3 +30,23 @@ When no tracker is configured, or you pass `--local`, the skill writes to `raw-r
 5. **`/implement`** — build the work
 
 You can enter the chain at any point. `new-raw` isn't mandatory — you can jump straight to `/grill-with-docs` if you prefer. But when the idea is fresh, or when you have images to attach, capture it first.
+
+## Common questions
+
+**Will it clean up or reinterpret what I wrote?**
+
+No. Verbatim capture is the constraint. Use [grill-with-docs](https://aihero.dev/skills-grill-with-docs) later when you want questions, alignment, and sharper language.
+
+**Do I need a hosted issue tracker?**
+
+No. GitHub and GitLab preserve the best image-pasting workflow, but `--local` writes a date-stamped Markdown file under `raw-requests/`.
+
+## It's working if
+
+- The captured body preserves the original request word for word.
+- No clarifying question interrupts capture.
+- The request lands either in the configured tracker with `needs-triage`, or in the documented local fallback.
+
+## Where it fits
+
+`new-raw` is an optional intake step before the main engineering flow. It preserves the primary input; [grill-with-docs](https://aihero.dev/skills-grill-with-docs) then aligns it, and [triage](https://aihero.dev/skills-triage) can process incoming tracker items. [ask-matt](https://aihero.dev/skills-ask-matt) maps the complete set.

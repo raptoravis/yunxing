@@ -34,7 +34,7 @@ A new directory under `skills/<bucket>/<name>/` appears upstream.
 
 1. Copy the skill directory into the fork at the same path.
 2. Register in **all** the places below (see Registration).
-3. Create a docs page at `docs/<bucket>/<name>.md` (follow `.agents/writing-docs.md`). The `Source` link in the docs page must point at **our fork** (`raptoravis/yunxing`), not upstream.
+3. Create a docs page at `docs/<bucket>/<name>.md` following `.agents/writing-docs.md`. Rewrite any links into the copied skill so they point at **our fork** (`raptoravis/yunxing`), not upstream.
 4. Re-run `scripts/link-skills.sh`.
 
 ### M — Existing skill modified
@@ -62,7 +62,7 @@ Upstream may change files outside `skills/` — `CLAUDE.md`, scripts, config, et
 1. **`CLAUDE.md`** — do NOT auto-merge. Show the diff to the user, flag any changed sections that overlap with our local additions (plugin maintenance rules, multi-manifest references, etc.), and ask the user what to keep.
 2. **Scripts** (`scripts/link-skills.sh`, etc.) — apply changes. These are unlikely to have fork-specific edits that conflict.
 3. **Config files** — review each diff. Our fork's `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/`, and `opencode.json` must NOT be overwritten (they use our rebranded names).
-4. **Docs pages** (`docs/`) — upstream docs reference `mattpocock/skills` URLs. Do not overwrite our docs pages with upstream's. However, if upstream added a new docs page for a newly absorbed skill, use it as a starting point but rewrite the Source link and any internal links to point at our fork.
+4. **Docs pages** (`docs/`) — merge upstream rewrites while preserving fork-specific content. Upstream docs may reference `mattpocock/skills`; keep issue and external-source links upstream, but rewrite links into copied skill files and any plugin branding to point at this fork.
 
 ## Registration
 
@@ -92,7 +92,7 @@ if ($diff) { Write-Host "MISMATCH" } else { Write-Host "OK: $($claude.skills.Cou
 This fork is rebranded from `mattpocock-skills` / `mattpocock/skills` to `yunxing` / `raptoravis/yunxing`. When absorbing upstream content:
 
 - **Do** absorb: skill bodies, frontmatter (`name`, `description`), supporting scripts, `.env.example` templates.
-- **Do NOT** revert: our plugin names in manifests, our `author` / `repository` / `homepage` fields, our marketplace entries, our docs page Source links.
+- **Do NOT** revert: our plugin names in manifests, our `author` / `repository` / `homepage` fields, our marketplace entries, or fork-specific docs content.
 - **Review carefully**: any new file that contains `mattpocock` in its content — decide case-by-case whether it's a brand reference (replace with ours) or an external link (keep).
 
 ## After Every Sync

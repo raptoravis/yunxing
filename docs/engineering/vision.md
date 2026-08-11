@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add mattpocock/skills --skill=vision
-```
-
-```bash
-npx skills update vision
-```
-
-[Source](https://github.com/mattpocock/skills/tree/main/skills/engineering/vision)
-
 ## What it does
 
 `vision` sends an image and prompt to a configured external vision provider: Doubao, Qwen, OpenAI, SiliconFlow, or another OpenAI-compatible endpoint.
@@ -31,6 +19,16 @@ Install `uv`, then configure at least one supported provider API key in `~/.env`
 Invoking the skill makes a network request to the configured provider and may incur provider cost. Its leading idea is **external**: choosing `/vision` is choosing a separate model endpoint rather than asking the current model to inspect the image directly.
 
 The provider resolves from an explicit command flag, `VISION_PROVIDER`, or the first supported API key found in `~/.env`.
+
+## Common questions
+
+**Should I use this for every screenshot or diagram?**
+
+No. Use the current model's native vision whenever it can inspect the image. This skill exists for a deliberate external-provider choice or a text-only harness.
+
+**Can invoking it send image data outside the current provider?**
+
+Yes. `/vision` makes a network request to the configured external endpoint, so choose it only when that transfer and any provider cost are acceptable.
 
 ## It's working if
 

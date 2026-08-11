@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add raptoravis/yunxing --skill=cp
-```
-
-```bash
-npx skills update cp
-```
-
-[Source](https://github.com/raptoravis/yunxing/tree/main/skills/productivity/cp)
-
 ## What it does
 
 `cp` commits all current changes, pushes to the remote, and handles the full cascade when the remote has moved ahead — pull, merge, and conflict resolution — so you never end up in a half-finished git state. It does not stop at "push rejected"; it walks through the resolution and pushes again.
@@ -23,6 +11,22 @@ You invoke this by typing `/cp` — the agent won't reach for it on its own. Rea
 `cp` runs a single loop: **commit → push → (if rejected) pull → merge → (if conflicts) resolve → push**. It repeats until the push succeeds or there is nothing left to commit. Each stage gates on the one before it — push only after commit, pull only after rejection, resolve only on conflict.
 
 Conflict resolution follows the [`/resolving-merge-conflicts`](https://aihero.dev/skills-resolving-merge-conflicts) discipline: understand each side's intent from its commit history, resolve hunk by hunk preserving both intents where possible, run the project's checks, and complete the merge — never `--abort`.
+
+## Common questions
+
+**Does it force-push when the remote is ahead?**
+
+No. It pulls and merges the remote changes, resolves any conflicts by intent, validates the result, and then pushes the combined history.
+
+**Will it commit unrelated working-tree changes?**
+
+It commits the current change set as a whole. Review the working tree first when you need a narrower commit boundary.
+
+## It's working if
+
+- A clean run ends with the intended changes committed and the current branch pushed.
+- A rejected push leads to a completed merge and retry, not a half-finished repository state.
+- Conflicts preserve both sides' intent and the project checks pass before the final push.
 
 ## Where it fits
 

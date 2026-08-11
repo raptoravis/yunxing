@@ -1,6 +1,6 @@
 {
   "name": "yunxing",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "private": true,
   "description": "Yunxing agent skills — forked from mattpocock/skills",
   "main": ".opencode/plugins/yunxing.mjs",
@@ -11,7 +11,8 @@
   "license": "MIT",
   "scripts": {
     "changeset": "changeset",
-    "version": "changeset version"
+    "version": "changeset version && node scripts/sync-plugin-version.mjs",
+    "check-plugin-version": "node scripts/sync-plugin-version.mjs --check"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.7.0",

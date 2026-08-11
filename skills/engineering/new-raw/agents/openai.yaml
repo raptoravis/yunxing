@@ -1,0 +1,5 @@
+interface:
+  display_name: "Capture Raw Requirement"
+  short_description: "Record a request verbatim for later refinement"
+policy:
+  allow_implicit_invocation: false

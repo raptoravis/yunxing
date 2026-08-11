@@ -1,15 +1,3 @@
-Quickstart:
-
-```bash
-npx skills add raptoravis/yunxing --skill=sync-ups
-```
-
-```bash
-npx skills update sync-ups
-```
-
-[Source](https://github.com/raptoravis/yunxing/tree/main/skills/engineering/sync-ups)
-
 ## What it does
 
 `sync-ups` keeps this fork in sync with upstream [`mattpocock/skills`](https://github.com/mattpocock/skills). It detects new, modified, and deleted skills since the last sync, absorbs them, and updates every downstream reference — plugin manifests, READMEs, docs pages, and symlinks — so nothing drifts out of date.
@@ -37,4 +25,25 @@ First run saves a baseline and does nothing else — it just records "we're caug
 
 ## Rebranding awareness
 
-This fork is rebranded (`yunxing` / `raptoravis/yunxing`). `sync-ups` knows to absorb skill content while preserving fork-specific identity in manifests, marketplace entries, and docs page Source links.
+This fork is rebranded (`yunxing` / `raptoravis/yunxing`). `sync-ups` absorbs skill content while preserving fork-specific identity in manifests, marketplace entries, installation guidance, and local-only skill registrations.
+
+## Common questions
+
+**Does it merge the whole upstream repository every time?**
+
+No. `.sync/upstream-baseline` records the last absorbed upstream commit, so each run handles only the next upstream diff.
+
+**What happens when upstream deletes a skill?**
+
+Deletion always pauses for confirmation. Keeping the directory makes it explicitly fork-only; approving deletion removes the skill and all of its registrations together.
+
+## It's working if
+
+- The saved baseline advances only after the upstream changes are handled.
+- Local branding and fork-only skills remain intact.
+- Both plugin manifests list the same skills and strict Claude plugin validation passes.
+- Upstream deletions and `CLAUDE.md` changes are surfaced for a human decision.
+
+## Where it fits
+
+`sync-ups` is periodic maintenance for this fork, not part of the idea-to-ship chain. It uses [resolving-merge-conflicts](https://aihero.dev/skills-resolving-merge-conflicts)' intent-first discipline when both sides changed the same content. [ask-matt](https://aihero.dev/skills-ask-matt) maps the complete set.

@@ -1,8 +1,8 @@
 ## What it does
 
-`report-from-commits` turns a git history range into a copy-pastable, non-technical report grouped by feature. Give it a repo and an exact start date, and it collects every commit since then, groups them into feature areas, and writes the result as audience-safe Markdown ready for email or chat.
+`report-from-commits` turns a git history range into a copy-pastable, non-technical report grouped by feature. Give it a repo and a date, and it collects every commit since then, groups them into feature areas, and writes the result as audience-safe Markdown ready for email or chat.
 
-The defining constraint: it refuses to guess dates. If you say "this week" or "recently", it stops and asks for a `YYYY-MM-DD`. This is not pedantry — the skill runs a hard date range under `git log --since`, and a guessed date silently produces the wrong range. The exact-date gate is the one check that keeps the report honest.
+You can give it an exact `YYYY-MM-DD`, or a relative expression like "最近一个礼拜", "last week", or "过去3天" — it resolves the offset to a concrete date automatically. The only dates it refuses are the truly anchorless ones: "recently", "a while ago". Those it still asks you to pin down, because the skill runs a hard date range under `git log --since` and a guessed range silently produces the wrong report.
 
 ## When to reach for it
 
@@ -13,7 +13,7 @@ Type `/report-from-commits`, or the agent reaches for it automatically when you 
 | You want a non-technical update from git history for a client, stakeholder, or team | `report-from-commits` |
 | You want engineering release notes, a developer changelog, or commit-by-commit detail | Not this skill — write the changelog by hand or use a changelog tool |
 | You want a code review of the changes | [code-review](https://aihero.dev/skills-code-review) |
-| You have no exact start date and need to figure out what happened when | Run `git log --oneline --since=<best-guess>` first to pin the date, then come back |
+| You have no start date at all, not even a relative range | Run `git log --oneline --since=<best-guess>` first to pin the date, then come back |
 
 ## The feature group
 
@@ -47,7 +47,7 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 
 ## It's working if
 
-- It stops on an ambiguous date ("this week", "recently") and asks for `YYYY-MM-DD` before doing anything else.
+- Relative dates with a clear offset ("最近一个礼拜", "last week") are resolved to `YYYY-MM-DD` automatically. Only anchorless dates ("recently") trigger a stop-and-ask.
 - The report has 3-8 feature sections, not one section per commit.
 - Every bullet is safe to paste into a client or stakeholder email — no hashes, no filenames, no "refactored the middleware pipeline".
 - Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "Stability and Foundations" section.

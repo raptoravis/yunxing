@@ -2,7 +2,7 @@
 
 Operating sequence for turning git history into a non-technical report.
 
-**Preconditions:** An exact `YYYY-MM-DD` start date, a readable git repo, and a report-generation goal.
+**Preconditions:** A start date (exact `YYYY-MM-DD` or a resolvable relative expression like "最近一个礼拜"), a readable git repo, and a report-generation goal.
 
 ## 1. Resolve the repo
 
@@ -10,17 +10,17 @@ Run `git rev-parse --show-toplevel` in the current directory, or `git -C <path> 
 
 Stop and ask the user for a readable git repository path if this fails.
 
-## 2. Refuse ambiguous dates
+## 2. Resolve the date
 
-Never translate phrases like "this week", "recently", "since launch", or "a few days ago" into a date yourself. Ask:
+If the user gives a relative date with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天"), resolve it to `YYYY-MM-DD` using the resolution table in the main SKILL.md. Only ask for clarification when the expression has no time anchor (e.g. "recently", "a while ago"):
 
-> What exact start date should I use? Please reply in YYYY-MM-DD.
+> What exact start date or relative range should I use? (e.g. "last week", "过去一个月", "最近3天")
 
-Do not proceed until the user answers with an exact date.
+Do not proceed until you have a concrete `YYYY-MM-DD`.
 
 ## 3. Gather context
 
-Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Add `--until <date>` for bounded ranges.
+Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
 
 This gives you subjects, scopes, files, and path counts in one pass — a fast high-level overview that lets you decide what needs deeper inspection.
 

@@ -4,7 +4,7 @@ Common failure modes when translating git history into reports, and how to avoid
 
 ## 1. Ambiguous time windows
 
-If the user says "this week", "recently", or any other relative phrase, **stop** and ask for an exact start date in `YYYY-MM-DD` format. Never guess.
+Relative dates with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天") should be resolved to `YYYY-MM-DD` automatically using the resolution table in the main SKILL.md. Only stop and ask when the expression has no time anchor (e.g. "recently", "a while ago", "some time back").
 
 ## 2. Not in a git repo
 

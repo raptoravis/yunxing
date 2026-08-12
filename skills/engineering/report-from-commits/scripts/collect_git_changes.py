@@ -35,6 +35,8 @@ def run_git(repo: Path, args: list[str]) -> str:
         check=False,
         capture_output=True,
         text=True,
+        encoding="utf-8",
+        errors="replace",
     )
     if result.returncode != 0:
         message = result.stderr.strip() or result.stdout.strip() or "git command failed"
@@ -67,6 +69,7 @@ def collect_commits(
     since: str,
     until: str | None,
     max_commits: int,
+    user: str | None = None,
 ) -> list[dict[str, object]]:
     args = [
         "log",
@@ -79,6 +82,8 @@ def collect_commits(
     ]
     if until:
         args.insert(4, f"--until={until} 23:59:59")
+    if user:
+        args.insert(4, f"--author={user}")
 
     output = run_git(repo, args)
     commits: list[dict[str, object]] = []
@@ -168,6 +173,10 @@ def build_parser() -> argparse.ArgumentParser:
         default=500,
         help="Maximum number of commits to inspect. Default: 500.",
     )
+    parser.add_argument(
+        "--user",
+        help="Filter commits to a specific author (name or email pattern). If omitted, all authors are included.",
+    )
     return parser
 
 
@@ -177,7 +186,7 @@ def main() -> int:
 
     try:
         repo = ensure_repo(Path(args.repo).resolve())
-        commits = collect_commits(repo, args.since, args.until, args.max_commits)
+        commits = collect_commits(repo, args.since, args.until, args.max_commits, args.user)
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         print(str(exc), file=sys.stderr)
         return 1

@@ -220,6 +220,7 @@ Skills I use daily for code work.
 - **[code-review](./skills/engineering/code-review/SKILL.md)** — Two-axis review of the diff since a fixed point: **Standards** (does it follow the repo's coding standards, plus a Fowler smell baseline?) and **Spec** (does it faithfully implement the originating issue/spec?), run as parallel sub-agents so neither pollutes the other.
 - **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)** — Work through an in-progress git merge or rebase conflict hunk by hunk, resolving by intent traced to each side's primary source, then finish the operation — never `--abort`.
 - **[wizard](./skills/engineering/wizard/SKILL.md)** — Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.
+- **[report-from-commits](./skills/engineering/report-from-commits/SKILL.md)** — Turn git history since an exact date into a copy-pastable, non-technical report grouped by feature. Use for client updates, stakeholder recaps, or progress reports. Refuses to guess dates.
 
 ### Productivity
 

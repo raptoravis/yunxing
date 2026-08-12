@@ -1,0 +1,3 @@
+interface:
+  display_name: "Report from Commits"
+  short_description: "Turn git history into a non-technical report grouped by feature"

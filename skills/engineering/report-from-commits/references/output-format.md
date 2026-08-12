@@ -2,6 +2,10 @@
 
 Rules for writing audience-facing reports from git history.
 
+## Language
+
+**所有报告内容必须使用中文输出。** 章节标题、要点、引言——全部用中文撰写。技术术语如果本身就是英文（如 API、SDK、UI）可保留原文，但描述和解释必须用中文。
+
 ## Audience
 
 - Write for non-technical readers — clients, stakeholders, leadership.
@@ -10,8 +14,8 @@ Rules for writing audience-facing reports from git history.
 
 ## Structure
 
-- One-line intro naming the date range (e.g. "Here is a high-level update for work completed since 2026-04-01.")
-- Short feature headings per main accomplishment (e.g. `## Checkout Experience`).
+- One-line intro naming the date range and commit count (e.g. "以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。")
+- Short feature headings per main accomplishment (e.g. `## 结账体验`)。
 - Max 2-3 bullets per feature section.
 
 ## Bullet rules
@@ -22,13 +26,13 @@ Rules for writing audience-facing reports from git history.
 
 ## Grouping
 
-- Group by feature or user-facing workflow: onboarding, checkout, reporting, content publishing, admin controls.
-- Avoid weak groups like "backend cleanup", "bug fixes", "miscellaneous", or commit-by-commit summaries.
+- Group by feature or user-facing workflow: 用户引导、结账流程、报表功能、内容发布、管理控制。
+- Avoid weak groups like "后端清理", "Bug 修复", "杂项", or commit-by-commit summaries.
 
 ## Conservative language
 
 - State clear benefits plainly.
-- If the benefit isn't clear from the diff, use modest phrasing — "advanced the work on", "improved the foundation for", "tightened the workflow around".
+- If the benefit isn't clear from the diff, use modest phrasing — "推进了……工作", "改进了……的基础", "优化了……的流程".
 
 ## Final pass checklist
 
@@ -36,3 +40,4 @@ Rules for writing audience-facing reports from git history.
 - Every bullet safe for a non-technical audience
 - Duplicate themes across commits merged
 - Output is paste-ready Markdown for email or chat
+- **全文使用中文**

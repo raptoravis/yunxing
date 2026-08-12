@@ -48,7 +48,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 | Confirm the repo | Run `git rev-parse --show-toplevel` in the current directory, or `git -C /path/to/repo rev-parse --show-toplevel` when a repo path is provided. |
 | Gather commit context | Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD`. Add `--user <name-or-email>` to filter by author. |
 | Inspect more detail | Read `references/workflow.md` and then inspect targeted commits with `git show <commit>`. |
-| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. |
+| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. Write the report in Chinese. |
 | Handle edge cases | Read `references/gotchas.md`. |
 
 ## Operating Rules
@@ -59,7 +59,8 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 4. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
 5. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
 6. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
-7. Do not invent business impact. If the value is unclear, use conservative phrasing such as "improved the foundation for" or "advanced the work on".
+7. Do not invent business impact. If the value is unclear, use conservative phrasing such as "推进了……工作" or "改进了……的基础".
+8. **Output in Chinese.** The report intro, section headings, and all bullets must be in Chinese. Technical terms that are inherently English (API, SDK, UI) may stay as-is, but their surrounding description must be in Chinese.
 
 ## Recommended Workflow
 
@@ -68,18 +69,18 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output.
 4. Inspect a few representative commits or diffs when the feature grouping is not obvious.
 5. Build a feature-based outline first, then write the audience-safe bullets.
-6. Paste the final answer in plain Markdown using `templates/report-template.md` as the shape.
+6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the commit count in the opening line.
 
 ## Report Contract
 
 Use this exact standard:
 
-- Start with a one-line intro such as `Here is a high-level update for work completed since 2026-04-01.`
-- Break the report into feature sections with short audience-friendly headings.
+- Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。` — always include the commit count from `collect_git_changes.py` output.
+- Break the report into feature sections with short audience-friendly headings in Chinese.
 - Keep each section to `2-3` bullets max.
-- Make every bullet outcome-first and non-technical.
+- Make every bullet outcome-first and non-technical, written in Chinese.
 - Keep the output copy-pastable. Do not wrap it in analysis notes or a developer preamble.
-- If there were no meaningful audience-facing changes in the requested window, say so plainly instead of padding the report.
+- If there were no meaningful audience-facing changes in the requested window, say so plainly in Chinese instead of padding the report.
 
 ## Reading Guide
 
@@ -96,4 +97,4 @@ Use this exact standard:
 2. A long git log is not a report. Condense by feature and omit low-signal internal churn when it is not useful to the audience.
 3. Technical commit subjects are often misleading for a non-technical audience. Inspect the diff or surrounding files before rewriting them as audience-facing bullets.
 4. Multiple commits may represent one accomplishment. Merge them into one feature section instead of repeating the same theme.
-5. Infrastructure-only changes should not be exaggerated. If they matter, frame them as stability or foundation work and keep the wording modest.
+5. Infrastructure-only changes should not be exaggerated. If they matter, frame them as stability or foundation work (e.g. "稳定性与基础设施") and keep the wording modest.

@@ -1,6 +1,6 @@
 ## What it does
 
-`report-from-commits` turns a git history range into a copy-pastable, non-technical report grouped by feature. Give it a repo and a date, and it collects every commit since then, groups them into feature areas, and writes the result as audience-safe Markdown ready for email or chat.
+`report-from-commits` turns a git history range into a copy-pastable, non-technical report grouped by feature — in Chinese. Give it a repo and a date, and it collects every commit since then, groups them into feature areas, and writes the result as audience-safe Markdown ready for email or chat.
 
 You can give it an exact `YYYY-MM-DD`, or a relative expression like "最近一个礼拜", "last week", or "过去3天" — it resolves the offset to a concrete date automatically. The only dates it refuses are the truly anchorless ones: "recently", "a while ago". Those it still asks you to pin down, because the skill runs a hard date range under `git log --since` and a guessed range silently produces the wrong report.
 
@@ -23,11 +23,11 @@ It works because the skill inspects before it writes. The first pass runs `colle
 
 The output contract is tight by design:
 
-- One-line date intro
-- Short feature headings
-- 2-3 outcome-first bullets per section, each one sentence
+- One-line date-and-commit-count intro in Chinese
+- Short feature headings in Chinese
+- 2-3 outcome-first bullets per section, each one sentence, in Chinese
 - No hashes, no filenames, no branch names, no refactor jargon
-- Optional "Stability and Foundations" section for internal work worth mentioning
+- Optional "稳定性与基础设施" section for internal work worth mentioning
 
 When there were no meaningful changes in the window, the report says so in one sentence. A padded report is worse than an honest one.
 
@@ -50,7 +50,9 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 - Relative dates with a clear offset ("最近一个礼拜", "last week") are resolved to `YYYY-MM-DD` automatically. Only anchorless dates ("recently") trigger a stop-and-ask.
 - The report has 3-8 feature sections, not one section per commit.
 - Every bullet is safe to paste into a client or stakeholder email — no hashes, no filenames, no "refactored the middleware pipeline".
-- Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "Stability and Foundations" section.
+- The report is written in Chinese: intro, headings, and all bullets.
+- The opening line includes the commit count alongside the date range.
+- Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "稳定性与基础设施" section.
 - A window with no meaningful changes produces a one-line honest answer, not a padded report.
 
 ## Where it fits

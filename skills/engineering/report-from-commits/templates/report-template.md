@@ -1,21 +1,21 @@
-Here is a high-level update for work completed since <YYYY-MM-DD>.
+以下是自 <YYYY-MM-DD> 以来共 <N> 个提交的工作进展高层次更新。
 
-## <Main Accomplishment 1>
+## <主要成果 1>
 
-- <Outcome written for a non-technical audience>
-- <Outcome written for a non-technical audience>
+- <面向非技术读者的成果描述>
+- <面向非技术读者的成果描述>
 
-## <Main Accomplishment 2>
+## <主要成果 2>
 
-- <Outcome written for a non-technical audience>
-- <Outcome written for a non-technical audience>
+- <面向非技术读者的成果描述>
+- <面向非技术读者的成果描述>
 
-## <Main Accomplishment 3>
+## <主要成果 3>
 
-- <Outcome written for a non-technical audience>
-- <Outcome written for a non-technical audience>
+- <面向非技术读者的成果描述>
+- <面向非技术读者的成果描述>
 
-<!-- Only include this section when internal work is worth mentioning to the audience -->
-## Stability and Foundations
+<!-- 仅当内部工作值得向读者提及时才包含此部分 -->
+## 稳定性与基础设施
 
-- <Outcome written for a non-technical audience>
+- <面向非技术读者的成果描述>

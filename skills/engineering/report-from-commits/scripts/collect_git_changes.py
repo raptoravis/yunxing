@@ -77,7 +77,7 @@ def collect_commits(
         "--date=short",
         f"--since={since} 00:00:00",
         f"--max-count={max_commits}",
-        "--format=%x1e%H%x1f%ad%x1f%s%x1f%b",
+        "--format=%x1e%H%x1f%ad%x1f%an%x1f%ae%x1f%s%x1f%b",
         "--name-only",
     ]
     if until:
@@ -96,9 +96,9 @@ def collect_commits(
         lines = raw_record.splitlines()
         header = lines[0]
         parts = header.split("\x1f")
-        while len(parts) < 4:
+        while len(parts) < 6:
             parts.append("")
-        commit_hash, commit_date, subject, body = parts[:4]
+        commit_hash, commit_date, author_name, author_email, subject, body = parts[:6]
         files = [line.strip() for line in lines[1:] if line.strip()]
         scope = extract_scope(subject)
 
@@ -106,6 +106,10 @@ def collect_commits(
             {
                 "hash": commit_hash,
                 "date": commit_date,
+                "author": {
+                    "name": author_name.strip(),
+                    "email": author_email.strip(),
+                },
                 "subject": subject.strip(),
                 "body": body.strip(),
                 "scope": scope,
@@ -121,8 +125,11 @@ def summarize(commits: list[dict[str, object]]) -> dict[str, object]:
     files_counter: Counter[str] = Counter()
     top_level_counter: Counter[str] = Counter()
     scope_counter: Counter[str] = Counter()
+    author_counter: Counter[tuple[str, str]] = Counter()
 
     for commit in commits:
+        author = commit["author"]
+        author_counter[(str(author["name"]), str(author["email"]))] += 1
         for file_path in commit["files"]:
             files_counter[file_path] += 1
             top_level_counter[top_level_name(file_path)] += 1
@@ -132,6 +139,10 @@ def summarize(commits: list[dict[str, object]]) -> dict[str, object]:
 
     return {
         "commit_count": len(commits),
+        "authors": [
+            {"name": name, "email": email, "commit_count": count}
+            for (name, email), count in author_counter.most_common()
+        ],
         "files_touched": sorted(files_counter),
         "top_level_paths": [
             {"path": path, "count": count}

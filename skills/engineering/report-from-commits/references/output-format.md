@@ -6,7 +6,7 @@ Rules for writing audience-facing reports from git history.
 
 **报告必须使用中文。这是硬性要求，没有例外。**
 
-Every line you output — the intro, every heading, every bullet — must be in Chinese. The ONLY exception: inherently-English technical nouns like API, SDK, UI, JSON, CLI may stay as-is, but their surrounding description MUST be in Chinese.
+Every line you output — the intro, every heading, every bullet — must be in Chinese. Inherently-English technical nouns like API, SDK, UI, JSON, CLI and Git author names or emails may stay as-is, but their surrounding description MUST be in Chinese.
 
 Before delivering the report, do a line-by-line scan. If any sentence is in English, rewrite it in Chinese. Do not skip this check. Do not deliver an English report.
 
@@ -18,7 +18,7 @@ Before delivering the report, do a line-by-line scan. If any sentence is in Engl
 
 ## Structure
 
-- One-line intro naming the date range and commit count (e.g. "以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。")
+- One-line intro naming the date range, commit count, and every included commit author (e.g. "以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice、Bob。") Use author names from the collector's `authors` summary; when two identities share a name, append their emails to distinguish them.
 - Short feature headings per main accomplishment (e.g. `## 结账体验`)。
 - Max 2-3 bullets per feature section.
 
@@ -43,5 +43,6 @@ Before delivering the report, do a line-by-line scan. If any sentence is in Engl
 - 2-3 bullets max per section
 - Every bullet safe for a non-technical audience
 - Duplicate themes across commits merged
+- Every included commit author appears in the intro, with no uninvolved author added
 - Output is paste-ready Markdown for email or chat
 - **全文使用中文**

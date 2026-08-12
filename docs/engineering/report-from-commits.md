@@ -19,11 +19,11 @@ Type `/report-from-commits`, or the agent reaches for it automatically when you 
 
 The skill's defining idea is **feature-grouped, not commit-by-commit**. A feature spread across eight commits produces one section with two or three bullets, not eight sections. Five unrelated commits touching the same directory are still grouped by what they accomplish, not by where the files live.
 
-It works because the skill inspects before it writes. The first pass runs `collect_git_changes.py`, which pulls every commit subject, scope, and touched file into one JSON document. Scopes from conventional commits (`feat(checkout):`, `fix(payment):`) and repeated top-level paths are the strongest grouping signals. When those are not enough, the skill inspects a few representative diffs — but only enough to group the work, never a full audit.
+It works because the skill inspects before it writes. The first pass runs `collect_git_changes.py`, which pulls every commit author, subject, scope, and touched file into one JSON document. Scopes from conventional commits (`feat(checkout):`, `fix(payment):`) and repeated top-level paths are the strongest grouping signals. When those are not enough, the skill inspects a few representative diffs — but only enough to group the work, never a full audit.
 
 The output contract is tight by design:
 
-- One-line date-and-commit-count intro in Chinese
+- One-line date, commit-count, and involved-author intro in Chinese
 - Short feature headings in Chinese
 - 2-3 outcome-first bullets per section, each one sentence, in Chinese
 - No hashes, no filenames, no branch names, no refactor jargon
@@ -41,9 +41,13 @@ The script still works. It extracts scopes where they exist and ignores them whe
 
 Yes. Pass `--until YYYY-MM-DD` to `collect_git_changes.py` for bounded windows — monthly reports, sprint reviews, or any fixed-interval recap. The skill asks for the start date first; tell it the end date as well and it uses both.
 
+**Which authors appear in the report?**
+
+The opening line lists every author represented by the collected commits. Names are deduplicated, and email addresses appear only when two distinct identities use the same name. If you filter with `--user`, the list reflects the filtered commits rather than every contributor in the repository.
+
 **Why not just pipe `git log` into an LLM and ask for a summary?**
 
-That is the obvious shortcut, and it fails in two ways. First, raw `git log` output mixed into a prompt with the instruction "write a client update" produces a report that drifts — some bullets are verbatim commit subjects with the jargon still in them, others invent impact the diff doesn't support. Second, the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) cost is high: a hundred commits with full diffs is a large prompt. `collect_git_changes.py` reduces each commit to its subject, scope, date, and touched files — the structured summary the skill needs to group the work, not the full source.
+That is the obvious shortcut, and it fails in two ways. First, raw `git log` output mixed into a prompt with the instruction "write a client update" produces a report that drifts — some bullets are verbatim commit subjects with the jargon still in them, others invent impact the diff doesn't support. Second, the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) cost is high: a hundred commits with full diffs is a large prompt. `collect_git_changes.py` reduces each commit to its author, subject, scope, date, and touched files — the structured summary the skill needs to group the work, not the full source.
 
 ## It's working if
 
@@ -51,7 +55,7 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 - The report has 3-8 feature sections, not one section per commit.
 - Every bullet is safe to paste into a client or stakeholder email — no hashes, no filenames, no "refactored the middleware pipeline".
 - The report is written in Chinese: intro, headings, and all bullets.
-- The opening line includes the commit count alongside the date range.
+- The opening line includes the commit count and every involved commit author alongside the date range.
 - Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "稳定性与基础设施" section.
 - A window with no meaningful changes produces a one-line honest answer, not a padded report.
 

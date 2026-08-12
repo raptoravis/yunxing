@@ -14,7 +14,7 @@ Install commands are copied verbatim from [.agents/install-block.md](./.agents/i
 - **Codex** — `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json`
 - **OpenCode** — `opencode.json` (skills.paths pointing at promoted buckets)
 
-When bumping the release version, keep all three manifests' `version` in sync with `package.json`'s. When a skill is added, removed, renamed, or moved between buckets, update **all four** skills lists — the three manifests plus the `skills` array in `.claude-plugin/plugin.json` (which the other two mirror) — and re-run `scripts/link-skills.sh`. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+When bumping the release version, keep all three manifests' `version` in sync with `package.json`'s. When a skill is added, removed, renamed, or moved between buckets, update **all four** skills lists — the three manifests plus the `skills` array in `.claude-plugin/plugin.json` (which the other two mirror). Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
@@ -26,7 +26,7 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate — a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
-To (re)link every skill into the local harness skill directories (`~/.claude/skills`, `~/.agents/skills`), run `scripts/link-skills.sh`. Each entry is a symlink into this repo, so a `git pull` keeps installed skills current; re-run the script after adding, removing, or renaming a skill.
+Use each harness's plugin mechanism as the sole installation and update path for this repository in Claude Code, Codex, and OpenCode. `scripts/link-skills.sh` is legacy tooling and must not be run; do not create repository skill links in `~/.claude/skills`, `~/.agents/skills`, or `~/.config/opencode/skills`.
 
 ## Agent skills
 

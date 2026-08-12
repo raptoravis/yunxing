@@ -4,7 +4,11 @@ Rules for writing audience-facing reports from git history.
 
 ## Language
 
-**所有报告内容必须使用中文输出。** 章节标题、要点、引言——全部用中文撰写。技术术语如果本身就是英文（如 API、SDK、UI）可保留原文，但描述和解释必须用中文。
+**报告必须使用中文。这是硬性要求，没有例外。**
+
+Every line you output — the intro, every heading, every bullet — must be in Chinese. The ONLY exception: inherently-English technical nouns like API, SDK, UI, JSON, CLI may stay as-is, but their surrounding description MUST be in Chinese.
+
+Before delivering the report, do a line-by-line scan. If any sentence is in English, rewrite it in Chinese. Do not skip this check. Do not deliver an English report.
 
 ## Audience
 

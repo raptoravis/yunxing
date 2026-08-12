@@ -7,6 +7,12 @@ description: Turn git commits and diffs since an exact date into a copy-pastable
 
 Turn git history since an explicit date into a copy-pastable, non-technical report grouped by feature.
 
+## 语言 / Language
+
+**报告必须用中文输出。这是硬性要求，不是建议。**
+
+Every line of the final report — intro, section headings, bullets, all of it — must be written in Chinese. The only exception: inherently-English technical terms (API, SDK, UI, JSON, CLI) may stay as-is, but their surrounding description must be in Chinese. Before delivering the report, do a line-by-line check: if any sentence is in English, rewrite it in Chinese. Do not output the report until it passes this check.
+
 ## Decision Tree
 
 What do you know already?
@@ -48,19 +54,19 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 | Confirm the repo | Run `git rev-parse --show-toplevel` in the current directory, or `git -C /path/to/repo rev-parse --show-toplevel` when a repo path is provided. |
 | Gather commit context | Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD`. Add `--user <name-or-email>` to filter by author. |
 | Inspect more detail | Read `references/workflow.md` and then inspect targeted commits with `git show <commit>`. |
-| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. Write the report in Chinese. |
+| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. **Write the final report in Chinese — every line.** |
 | Handle edge cases | Read `references/gotchas.md`. |
 
 ## Operating Rules
 
-1. Confirm the date before doing anything else. Resolve relative dates (e.g. "最近一个礼拜", "last week") to `YYYY-MM-DD` using the resolution table. Only stop and ask when the expression has no time anchor (e.g. "recently").
-2. Confirm the repository context. If the current working directory is not a readable git repo, require an explicit repo path.
-3. Collect the commit list and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
-4. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
-5. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
-6. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
-7. Do not invent business impact. If the value is unclear, use conservative phrasing such as "推进了……工作" or "改进了……的基础".
-8. **Output in Chinese.** The report intro, section headings, and all bullets must be in Chinese. Technical terms that are inherently English (API, SDK, UI) may stay as-is, but their surrounding description must be in Chinese.
+1. **输出中文。** 报告的引言、章节标题、所有要点必须用中文撰写。这是不可协商的硬性要求。技术术语（API、SDK、UI 等）可保留英文，但其周围的描述必须用中文。输出报告前逐行检查：有英文句子就改成中文。
+2. Confirm the date before doing anything else. Resolve relative dates (e.g. "最近一个礼拜", "last week") to `YYYY-MM-DD` using the resolution table. Only stop and ask when the expression has no time anchor (e.g. "recently").
+3. Confirm the repository context. If the current working directory is not a readable git repo, require an explicit repo path.
+4. Collect the commit list and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
+5. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
+6. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
+7. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
+8. Do not invent business impact. If the value is unclear, use conservative phrasing such as "推进了……工作" or "改进了……的基础".
 
 ## Recommended Workflow
 
@@ -69,12 +75,13 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output.
 4. Inspect a few representative commits or diffs when the feature grouping is not obvious.
 5. Build a feature-based outline first, then write the audience-safe bullets.
-6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the commit count in the opening line.
+6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the commit count in the opening line. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**
 
 ## Report Contract
 
 Use this exact standard:
 
+- **Every word of the report must be in Chinese.** This is the first and most important rule. Intro, headings, bullets — all Chinese. Only exception: inherently-English technical nouns (API, SDK, JSON, CLI). Before delivering, verify: no English sentences exist in the output.
 - Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。` — always include the commit count from `collect_git_changes.py` output.
 - Break the report into feature sections with short audience-friendly headings in Chinese.
 - Keep each section to `2-3` bullets max.

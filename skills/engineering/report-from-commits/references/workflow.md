@@ -12,6 +12,8 @@ Stop and ask the user for a readable git repository path if this fails.
 
 ## 2. Resolve the date
 
+If the user gives no date at all, default to the last week: `today - 7 days`. Compute it from today's date in the system context and proceed without asking.
+
 If the user gives a relative date with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天"), resolve it to `YYYY-MM-DD` using the resolution table in the main SKILL.md. Only ask for clarification when the expression has no time anchor (e.g. "recently", "a while ago"):
 
 > What exact start date or relative range should I use? (e.g. "last week", "过去一个月", "最近3天")
@@ -20,7 +22,7 @@ Do not proceed until you have a concrete `YYYY-MM-DD`.
 
 ## 3. Gather context
 
-Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
+Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Omit `--since` to default to the last week (7 days). Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
 
 This gives you authors, subjects, scopes, files, and path counts in one pass — a fast high-level overview that lets you decide what needs deeper inspection. Use the top-level `authors` summary for the report intro.
 

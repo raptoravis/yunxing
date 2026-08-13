@@ -20,6 +20,7 @@ What do you know already?
 - Exact start date in `YYYY-MM-DD` and the current working directory is the target git repo: continue.
 - Exact start date in `YYYY-MM-DD`, but the target repo is elsewhere: use the explicit repo path and continue.
 - Relative date such as "最近一个礼拜", "last week", "过去一个月", "最近3天", or "yesterday": resolve it to an exact `YYYY-MM-DD` using the resolution table below. Use today's date from the system context to compute the offset. Do not ask the user to rephrase — just resolve and proceed.
+- No start date given at all (the user asked for a report without mentioning a date or `--since`): default to the last week. Resolve to `today - 7 days` using today's date from the system context, and proceed without asking.
 - Truly vague date such as "recently", "a while ago", "some time back", or "since the last push": stop and ask `What exact start date or relative range should I use? (e.g. "last week", "过去一个月", "最近3天")`. Do not proceed until the user answers.
 - No readable git repo in the current working directory and no repo path was provided: stop and ask for a readable git repository path.
 - The user wants engineering release notes, a developer changelog, or a code review: do not use this skill.
@@ -52,7 +53,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 | Task | Action |
 | --- | --- |
 | Confirm the repo | Run `git rev-parse --show-toplevel` in the current directory, or `git -C /path/to/repo rev-parse --show-toplevel` when a repo path is provided. |
-| Gather commit context | Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD`. Add `--user <name-or-email>` to filter by author. |
+| Gather commit context | Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD`. Add `--user <name-or-email>` to filter by author. If `--since` is omitted, the script defaults to the last week (7 days). |
 | Inspect more detail | Read `references/workflow.md` and then inspect targeted commits with `git show <commit>`. |
 | Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. **Write the final report in Chinese — every line.** |
 | Handle edge cases | Read `references/gotchas.md`. |
@@ -60,7 +61,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 ## Operating Rules
 
 1. **输出中文。** 报告的引言、章节标题、所有要点必须用中文撰写。这是不可协商的硬性要求。技术术语（API、SDK、UI 等）以及 Git 作者姓名、邮箱可保留原文，但其周围的描述必须用中文。输出报告前逐行检查：有英文句子就改成中文。
-2. Confirm the date before doing anything else. Resolve relative dates (e.g. "最近一个礼拜", "last week") to `YYYY-MM-DD` using the resolution table. Only stop and ask when the expression has no time anchor (e.g. "recently").
+2. Confirm the date before doing anything else. Resolve relative dates (e.g. "最近一个礼拜", "last week") to `YYYY-MM-DD` using the resolution table. When no date is given at all, default to the last week (`today - 7 days`). Only stop and ask when the expression has no time anchor (e.g. "recently").
 3. Confirm the repository context. If the current working directory is not a readable git repo, require an explicit repo path.
 4. Collect the commit list, authors, and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
 5. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
@@ -71,8 +72,8 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 ## Recommended Workflow
 
 1. Resolve the target repo.
-2. Resolve the start date. If the user gives a relative expression (e.g. "最近一个礼拜"), resolve it to `YYYY-MM-DD` using the resolution table. Only ask for clarification if the expression has no time anchor.
-3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output.
+2. Resolve the start date. If the user gives a relative expression (e.g. "最近一个礼拜"), resolve it to `YYYY-MM-DD` using the resolution table. If the user gives no date at all, default to the last week (`today - 7 days`). Only ask for clarification if the expression has no time anchor.
+3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output. Omit `--since` to default to the last week.
 4. Inspect a few representative commits or diffs when the feature grouping is not obvious.
 5. Build a feature-based outline first, then write the audience-safe bullets.
 6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the commit count and every author from the collector's `authors` summary in the opening line. Show author names; when two identities share a name, append their emails to distinguish them. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**

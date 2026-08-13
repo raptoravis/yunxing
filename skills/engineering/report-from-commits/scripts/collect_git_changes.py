@@ -14,6 +14,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
+from datetime import date, timedelta
 from pathlib import Path
 
 
@@ -169,9 +170,8 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--since",
-        required=True,
         type=exact_date,
-        help="Exact start date in YYYY-MM-DD.",
+        help="Exact start date in YYYY-MM-DD. Defaults to 7 days ago.",
     )
     parser.add_argument(
         "--until",
@@ -194,6 +194,9 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.since is None:
+        args.since = (date.today() - timedelta(days=7)).isoformat()
 
     try:
         repo = ensure_repo(Path(args.repo).resolve())

@@ -2,7 +2,7 @@
 
 `report-from-commits` turns a git history range into a copy-pastable, non-technical report grouped by feature — in Chinese. Give it a repo and a date, and it collects every commit since then, groups them into feature areas, and writes the result as audience-safe Markdown ready for email or chat.
 
-You can give it an exact `YYYY-MM-DD`, or a relative expression like "最近一个礼拜", "last week", or "过去3天" — it resolves the offset to a concrete date automatically. The only dates it refuses are the truly anchorless ones: "recently", "a while ago". Those it still asks you to pin down, because the skill runs a hard date range under `git log --since` and a guessed range silently produces the wrong report.
+You can give it an exact `YYYY-MM-DD`, or a relative expression like "最近一个礼拜", "last week", or "过去3天" — it resolves the offset to a concrete date automatically. Give it no date at all and it defaults to the last week. The only dates it refuses are the truly anchorless ones: "recently", "a while ago". Those it still asks you to pin down, because the skill runs a hard date range under `git log --since` and a guessed range silently produces the wrong report.
 
 ## When to reach for it
 
@@ -13,7 +13,7 @@ Type `/report-from-commits`, or the agent reaches for it automatically when you 
 | You want a non-technical update from git history for a client, stakeholder, or team | `report-from-commits` |
 | You want engineering release notes, a developer changelog, or commit-by-commit detail | Not this skill — write the changelog by hand or use a changelog tool |
 | You want a code review of the changes | [code-review](https://aihero.dev/skills-code-review) |
-| You have no start date at all, not even a relative range | Run `git log --oneline --since=<best-guess>` first to pin the date, then come back |
+| You have no start date at all, not even a relative range | Use it anyway — the skill defaults to the last week |
 
 ## The feature group
 
@@ -51,7 +51,7 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 
 ## It's working if
 
-- Relative dates with a clear offset ("最近一个礼拜", "last week") are resolved to `YYYY-MM-DD` automatically. Only anchorless dates ("recently") trigger a stop-and-ask.
+- Relative dates with a clear offset ("最近一个礼拜", "last week") are resolved to `YYYY-MM-DD` automatically. A missing date defaults to the last week. Only anchorless dates ("recently") trigger a stop-and-ask.
 - The report has 3-8 feature sections, not one section per commit.
 - Every bullet is safe to paste into a client or stakeholder email — no hashes, no filenames, no "refactored the middleware pipeline".
 - The report is written in Chinese: intro, headings, and all bullets.

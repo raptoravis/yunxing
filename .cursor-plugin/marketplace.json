@@ -1,0 +1,17 @@
+{
+  "name": "yunxing",
+  "owner": {
+    "name": "raptoravis"
+  },
+  "metadata": {
+    "description": "Yunxing agent skills — forked from mattpocock/skills, as an installable Cursor plugin.",
+    "version": "1.4.5"
+  },
+  "plugins": [
+    {
+      "name": "yunxing",
+      "source": ".",
+      "description": "Yunxing agent skills — grilling, spec/ticket flows, TDD, code review, domain modelling and more."
+    }
+  ]
+}

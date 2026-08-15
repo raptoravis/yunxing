@@ -61,7 +61,7 @@ Upstream may change files outside `skills/` — `CLAUDE.md`, scripts, config, et
 
 1. **`CLAUDE.md`** — do NOT auto-merge. Show the diff to the user, flag any changed sections that overlap with our local additions (plugin maintenance rules, multi-manifest references, etc.), and ask the user what to keep.
 2. **Scripts** (`scripts/link-skills.sh`, etc.) — apply changes. These are unlikely to have fork-specific edits that conflict.
-3. **Config files** — review each diff. Our fork's `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/`, and `opencode.json` must NOT be overwritten (they use our rebranded names).
+3. **Config files** — review each diff. Our fork's `.claude-plugin/`, `.codex-plugin/`, `.agents/plugins/`, and `.opencode/plugins/` must NOT be overwritten (they use our rebranded names).
 4. **Docs pages** (`docs/`) — merge upstream rewrites while preserving fork-specific content. Upstream docs may reference `mattpocock/skills`; keep issue and external-source links upstream, but rewrite links into copied skill files and any plugin branding to point at this fork.
 
 ## Registration
@@ -85,7 +85,7 @@ $diff = Compare-Object ($claude.skills | Sort-Object) ($codex.skills | Sort-Obje
 if ($diff) { Write-Host "MISMATCH" } else { Write-Host "OK: $($claude.skills.Count) skills" }
 ```
 
-`opencode.json` covers whole buckets (`./skills/engineering`, `./skills/productivity`), so new skills inside those buckets are auto-discovered — no per-skill change needed.
+`.opencode/plugins/yunxing.mjs` covers whole buckets (`./skills/engineering`, `./skills/productivity`), so new skills inside those buckets are auto-discovered — no per-skill change needed.
 
 ## Rebranding Awareness
 

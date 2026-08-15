@@ -13,10 +13,10 @@ Install commands are copied verbatim from [.agents/install-block.md](./.agents/i
 - **Claude Code** — `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
 - **Codex** — `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json`
 - **Cursor** — `.cursor-plugin/plugin.json` + `.cursor-plugin/marketplace.json`
-- **OpenCode** — `opencode.json` (skills.paths pointing at promoted buckets)
+- **OpenCode** — `.opencode/plugins/yunxing.mjs` (package.json `main` → plugin entry)
 - **DeepSeek Harness (dsh)** — `package.json`'s `dsh.bundle.patch` → `cordis.patch.yml`, a bundle whose `skill-filesystem` row points `customSkillDirs` at the promoted buckets via `.dsh/plugin.mjs`
 
-When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s. The dsh bundle's version is `package.json`'s own `version`, so it needs no separate sync. When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, all three plugin manifests' `skills` arrays, and `opencode.json`/`.dsh/plugin.mjs` when their promoted bucket paths change. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s. The dsh bundle's version is `package.json`'s own `version`, so it needs no separate sync. When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, all three plugin manifests' `skills` arrays, and `.opencode/plugins/yunxing.mjs`/`.dsh/plugin.mjs` when their promoted bucket paths change. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 

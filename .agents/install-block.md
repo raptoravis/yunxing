@@ -64,6 +64,18 @@ The bundle registers the promoted skill directories (`skills/engineering` and `s
 
 </canonical-block>
 
+## OpenCode — the plugin
+
+<canonical-block name="opencode">
+
+```bash
+opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
+```
+
+The plugin registers the promoted skill directories (`skills/engineering` and `skills/productivity`). Pin a release with `yunxing@git+https://github.com/raptoravis/yunxing.git#vX.Y.Z`.
+
+</canonical-block>
+
 ## The two routes are exclusive
 
 The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice — always say "pick one".

@@ -60,7 +60,9 @@ codex plugin add yunxing@yunxing
 <details>
 <summary><strong>OpenCode</strong></summary>
 
-OpenCode auto-discovers skills from `.claude/skills/`, `.agents/skills/`, and `.opencode/skills/`. If you installed via [skills.sh](https://skills.sh/mattpocock/skills), the skills are already linked. Alternatively, copy the `opencode.json` from this repo to your project — it points OpenCode at the promoted skill directories.
+```bash
+opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
+```
 
 </details>
 

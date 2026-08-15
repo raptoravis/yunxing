@@ -52,6 +52,18 @@ npx skills@latest update <name>
 
 `skills@latest` is the pinned spelling in all three. The pages under `docs/` used to carry their own copy of these commands; those blocks are now deleted rather than corrected, because the site renders the install commands itself.
 
+## DeepSeek Harness (dsh) — the bundle
+
+<canonical-block name="dsh">
+
+```bash
+dsh plugin --profile web add github:raptoravis/yunxing
+```
+
+The bundle registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as an isolated skill provider. Pin a release with `github:raptoravis/yunxing#vX.Y.Z`.
+
+</canonical-block>
+
 ## The two routes are exclusive
 
 The plugin is a managed, read-only bundle you subscribe to. skills.sh writes files you own and edit. Installing both leaves the user with every skill twice — always say "pick one".

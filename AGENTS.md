@@ -8,14 +8,15 @@ Skills are organized into bucket folders under `skills/`:
 
 Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in the `skills` arrays of `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in any of them.
 
-Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). The repo is also its own single-plugin marketplace for four agent harnesses:
+Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). The repo is also its own single-plugin marketplace for five agent harnesses:
 
 - **Claude Code** — `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
 - **Codex** — `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json`
 - **Cursor** — `.cursor-plugin/plugin.json` + `.cursor-plugin/marketplace.json`
 - **OpenCode** — `opencode.json` (skills.paths pointing at promoted buckets)
+- **DeepSeek Harness (dsh)** — `package.json`'s `dsh.bundle.patch` → `cordis.patch.yml`, a bundle whose `skill-filesystem` row points `customSkillDirs` at the promoted buckets via `.dsh/plugin.mjs`
 
-When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s. When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, all three plugin manifests' `skills` arrays, and `opencode.json` when its promoted bucket paths change. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s. The dsh bundle's version is `package.json`'s own `version`, so it needs no separate sync. When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, all three plugin manifests' `skills` arrays, and `opencode.json`/`.dsh/plugin.mjs` when their promoted bucket paths change. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
 
 Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
 
@@ -27,7 +28,7 @@ Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `
 
 [`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate — a new skill it never mentions, or a stale one it still routes to, is a router that lies.
 
-Use each harness's plugin mechanism as the sole installation and update path for this repository in Claude Code, Codex, Cursor, and OpenCode. `scripts/link-skills.sh` is legacy tooling and must not be run; do not create repository skill links in `~/.claude/skills`, `~/.agents/skills`, `~/.cursor/skills`, or `~/.config/opencode/skills`.
+Use each harness's plugin mechanism as the sole installation and update path for this repository in Claude Code, Codex, Cursor, OpenCode, and DeepSeek Harness (dsh). `scripts/link-skills.sh` is legacy tooling and must not be run; do not create repository skill links in `~/.claude/skills`, `~/.agents/skills`, `~/.cursor/skills`, `~/.config/opencode/skills`, or `~/.dsh/skills`.
 
 ## Agent skills
 

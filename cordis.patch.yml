@@ -1,0 +1,22 @@
+# Yunxing bundle patch — registers this package's promoted skill buckets as an
+# isolated skill provider on top of whatever the profile already composes.
+#
+# `yunxing` is this package's own tiny Cordis plugin; it resolves its install
+# directory from import.meta.url and provides it as the `yunxingSkills`
+# service. The skill-filesystem row injects that service and points
+# customSkillDirs at the two promoted buckets, so the skills travel with the
+# bundle wherever dsh installs it.
+
+- insert:
+    - id: yunxing
+      name: 'yunxing/dsh'
+
+    - id: yunxing-skills
+      name: '@deepseek-ai/dsh-skill-filesystem'
+      inject: ['yunxingSkills']
+      config:
+        providerName: yunxing
+        includeDefaultRoots: false
+        customSkillDirs:
+          - !!js ctx.yunxingSkills.engineering
+          - !!js ctx.yunxingSkills.productivity

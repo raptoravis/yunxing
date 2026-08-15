@@ -65,6 +65,17 @@ OpenCode auto-discovers skills from `.claude/skills/`, `.agents/skills/`, and `.
 </details>
 
 <details>
+<summary><strong>DeepSeek Harness (dsh)</strong></summary>
+
+```bash
+dsh plugin --profile web add github:raptoravis/yunxing
+```
+
+The bundle registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as an isolated skill provider. Pin a release with `github:raptoravis/yunxing#vX.Y.Z`.
+
+</details>
+
+<details>
 <summary><strong>For tinkerers and other agents</strong></summary>
 
 Use the skills.sh installer on any Agent Skills-compatible harness:

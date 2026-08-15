@@ -4,6 +4,17 @@
   "private": true,
   "description": "Yunxing agent skills — forked from mattpocock/skills",
   "main": ".opencode/plugins/yunxing.mjs",
+  "exports": {
+    ".": "./.opencode/plugins/yunxing.mjs",
+    "./dsh": "./.dsh/plugin.mjs",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/raptoravis/yunxing"

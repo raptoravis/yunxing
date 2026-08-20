@@ -63,7 +63,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 1. **输出中文。** 报告的引言、章节标题、所有要点必须用中文撰写。这是不可协商的硬性要求。技术术语（API、SDK、UI 等）以及 Git 作者姓名、邮箱可保留原文，但其周围的描述必须用中文。输出报告前逐行检查：有英文句子就改成中文。
 2. Confirm the date before doing anything else. Resolve relative dates (e.g. "最近一个礼拜", "last week") to `YYYY-MM-DD` using the resolution table. When no date is given at all, default to the last week (`today - 7 days`). Only stop and ask when the expression has no time anchor (e.g. "recently").
 3. Confirm the repository context. If the current working directory is not a readable git repo, require an explicit repo path.
-4. Collect the commit list, authors, and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
+4. Collect the commit list, author contribution statistics, and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
 5. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
 6. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
 7. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
@@ -76,14 +76,14 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output. Omit `--since` to default to the last week.
 4. Inspect a few representative commits or diffs when the feature grouping is not obvious.
 5. Build a feature-based outline first, then write the audience-safe bullets.
-6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the commit count and every author from the collector's `authors` summary in the opening line. Show author names; when two identities share a name, append their emails to distinguish them. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**
+6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the total commit count and every author from the collector's `authors` summary in the opening line. For each author, show their `commit_count` and `commit_percentage` of the included commits. Show author names; when two identities share a name, append their emails to distinguish them. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**
 
 ## Report Contract
 
 Use this exact standard:
 
 - **Every sentence of the report must be in Chinese.** This is the first and most important rule. Intro, headings, bullets — all Chinese. Inherently-English technical nouns (API, SDK, JSON, CLI) and Git author names or emails may remain unchanged. Before delivering, verify: no English sentences exist in the output.
-- Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice、Bob。` — always include the commit count and every identity from the `authors` summary in `collect_git_changes.py` output. List names once; append emails only to distinguish identical names.
+- Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。` — always include the total commit count and every identity's `commit_count` and `commit_percentage` from the `authors` summary in `collect_git_changes.py` output. List names once; append emails only to distinguish identical names.
 - Break the report into feature sections with short audience-friendly headings in Chinese.
 - Keep each section to `2-3` bullets max.
 - Make every bullet outcome-first and non-technical, written in Chinese.

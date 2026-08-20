@@ -138,10 +138,17 @@ def summarize(commits: list[dict[str, object]]) -> dict[str, object]:
         if scope:
             scope_counter[str(scope)] += 1
 
+    commit_count = len(commits)
+
     return {
-        "commit_count": len(commits),
+        "commit_count": commit_count,
         "authors": [
-            {"name": name, "email": email, "commit_count": count}
+            {
+                "name": name,
+                "email": email,
+                "commit_count": count,
+                "commit_percentage": round(count / commit_count * 100, 1),
+            }
             for (name, email), count in author_counter.most_common()
         ],
         "files_touched": sorted(files_counter),

@@ -1,7 +1,7 @@
 {
   "name": "yunxing",
   "displayName": "Yunxing Skills",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Yunxing agent skills: grilling, spec/ticket flows, TDD, code review, domain modelling and more. Plug-and-play, not vibe coding.",
   "author": {
     "name": "raptoravis"

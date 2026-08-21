@@ -24,7 +24,7 @@ It works because the skill inspects before it writes. The first pass runs `colle
 The output contract is tight by design:
 
 - One-line date and total commit-count intro in Chinese, followed by every involved author's commit count and percentage
-- Short feature headings in Chinese, each followed by a `提交者` line naming who committed that feature
+- Short feature headings in Chinese, each including `提交者：<姓名>` in the same heading
 - 2-3 outcome-first bullets per section, each one sentence, in Chinese
 - No hashes, no filenames, no branch names, no refactor jargon
 - Optional "稳定性与基础设施" section for internal work worth mentioning
@@ -43,7 +43,7 @@ Yes. Pass `--until YYYY-MM-DD` to `collect_git_changes.py` for bounded windows: 
 
 **Which authors appear in the report?**
 
-The opening line lists every author represented by the collected commits, with their commit count and percentage of all included commits. Percentages are calculated from the filtered report window, not the repository's lifetime history. Names are deduplicated, and email addresses appear only when two distinct identities use the same name. If you filter with `--user`, the list and percentages reflect the filtered commits rather than every contributor in the repository. Each feature section also names its author(s) directly under the heading: a `提交者` line that draws from the commits grouped into that section, so a reader can see at a glance who did which piece of work.
+The opening line lists every author represented by the collected commits, with their commit count and percentage of all included commits. Percentages are calculated from the filtered report window, not the repository's lifetime history. Names are deduplicated, and email addresses appear only when two distinct identities use the same name. If you filter with `--user`, the list and percentages reflect the filtered commits rather than every contributor in the repository. Each feature section also names its author(s) inside the heading as `章节标题（提交者：姓名）`, drawing from the commits grouped into that section so a reader can see at a glance who did which piece of work.
 
 **Why not just pipe `git log` into an LLM and ask for a summary?**
 
@@ -56,7 +56,7 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 - Every bullet is safe to paste into a client or stakeholder email: no hashes, no filenames, no "refactored the middleware pipeline".
 - The report is written in Chinese: intro, headings, and all bullets.
 - The opening line includes the total commit count and every involved author's commit count and percentage alongside the date range.
-- Each feature section names its author(s) in a `提交者` line under the heading, matching the commits grouped into that section.
+- Each feature section names its author(s) inside the heading, matching the commits grouped into that section.
 - Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "稳定性与基础设施" section.
 - A window with no meaningful changes produces a one-line honest answer, not a padded report.
 

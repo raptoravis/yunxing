@@ -39,7 +39,7 @@ Look for these grouping signals, in priority order:
 3. Customer-facing thread subjects
 4. Shared ticket or issue references in commit messages
 
-Merge related commits into one accomplishment. A single feature spread across five commits is one section, not five. While grouping, note which author(s) committed each section's commits: you will attribute each section to them with a `提交者` line when writing.
+Merge related commits into one accomplishment. A single feature spread across five commits is one section, not five. While grouping, note which author(s) committed each section's commits: you will attribute each section to them inside the section heading when writing.
 
 ## 6. Write the report
 
@@ -48,6 +48,6 @@ Fill in the template, then check:
 - Grouped by feature, not by commit
 - Max 2-3 bullets per section
 - Intro includes every author represented by the collected commits, plus each author's commit count and percentage of the total
-- Each section names its author(s) in a `提交者：<姓名>` line, drawn from the commits grouped into that section
+- Each section names its author(s) inside the heading as `## <章节标题>（提交者：<姓名>）`, drawn from the commits grouped into that section
 - No hashes, filenames, branches, or internal tooling names
 - Plain Markdown, ready for email or chat

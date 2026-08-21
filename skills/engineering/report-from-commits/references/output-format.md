@@ -6,13 +6,13 @@ Rules for writing audience-facing reports from git history.
 
 **报告必须使用中文。这是硬性要求，没有例外。**
 
-Every line you output — the intro, every heading, every bullet — must be in Chinese. Inherently-English technical nouns like API, SDK, UI, JSON, CLI and Git author names or emails may stay as-is, but their surrounding description MUST be in Chinese.
+Every line you output (the intro, every heading, every bullet) must be in Chinese. Inherently-English technical nouns like API, SDK, UI, JSON, CLI and Git author names or emails may stay as-is, but their surrounding description MUST be in Chinese.
 
 Before delivering the report, do a line-by-line scan. If any sentence is in English, rewrite it in Chinese. Do not skip this check. Do not deliver an English report.
 
 ## Audience
 
-- Write for non-technical readers — clients, stakeholders, leadership.
+- Write for non-technical readers: clients, stakeholders, leadership.
 - Cover: what changed, where progress happened, why it matters at a high level.
 - Exclude: commit hashes, filenames, internal module names, refactor details, branch/PR mechanics.
 
@@ -37,7 +37,7 @@ Before delivering the report, do a line-by-line scan. If any sentence is in Engl
 ## Conservative language
 
 - State clear benefits plainly.
-- If the benefit isn't clear from the diff, use modest phrasing — "推进了……工作", "改进了……的基础", "优化了……的流程".
+- If the benefit isn't clear from the diff, use modest phrasing: "推进了……工作", "改进了……的基础", "优化了……的流程".
 
 ## Final pass checklist
 

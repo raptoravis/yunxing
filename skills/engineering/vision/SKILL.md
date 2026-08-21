@@ -18,7 +18,7 @@ Do not invoke this skill automatically for screenshots, UI layouts, diagrams, ch
 uv run "${SKILL_DIR}/scripts/vision.py" [--provider <name>] <image_path> <prompt>
 ```
 
-`uv run` reads the PEP 723 dependency block at the top of `vision.py` and auto-installs `openai` into an ephemeral environment on first run — **no manual install step, no global pollution**. Prerequisite: have [uv](https://docs.astral.sh/uv/) on the PATH (`pip install uv` or `winget install astral-sh.uv` on Windows).
+`uv run` reads the PEP 723 dependency block at the top of `vision.py` and auto-installs `openai` into an ephemeral environment on first run: **no manual install step, no global pollution**. Prerequisite: have [uv](https://docs.astral.sh/uv/) on the PATH (`pip install uv` or `winget install astral-sh.uv` on Windows).
 
 When `--provider` is omitted, the provider resolves by: `--provider` flag → `VISION_PROVIDER` env → first API key found in `~/.env` (by file line order) → `doubao`.
 
@@ -34,7 +34,7 @@ cp "${SKILL_DIR}/.env.example" ~/.env                 # macOS / Linux / Git Bash
 copy "${SKILL_DIR}\.env.example" "%USERPROFILE%\.env"  # Windows cmd
 ```
 
-Then set at least one API key in `~/.env` (zero-config, shared with other tools) — real environment variables still win over the file. Minimal example:
+Then set at least one API key in `~/.env` (zero-config, shared with other tools): real environment variables still win over the file. Minimal example:
 
 ```dotenv
 # ~/.env  (i.e. C:\Users\<you>\.env on Windows)
@@ -63,11 +63,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "${SKILL_DIR}/scripts/setup.
 What it does:
 
 - **Default (no flags):** runs the dependency smoke test (`uv run vision.py --help`, auto-installs `openai` via the PEP 723 block). Warns if `uv` is not on the PATH. Does **not** touch `~/.claude/CLAUDE.md`.
-- **`--merge-claude` / `-MergeClaude`:** also merges the UI-check flow into `~/.claude/CLAUDE.md` between idempotent markers (`<!-- === COMPOUND_VISION_START/END === -->`). Safe to re-run — it replaces the marked section, never duplicates. Existing CLAUDE.md content outside the markers is preserved.
+- **`--merge-claude` / `-MergeClaude`:** also merges the UI-check flow into `~/.claude/CLAUDE.md` between idempotent markers (`<!-- === COMPOUND_VISION_START/END === -->`). Safe to re-run: it replaces the marked section, never duplicates. Existing CLAUDE.md content outside the markers is preserved.
 - **`--uninstall` / `-Uninstall`:** removes only the marked section. Use when you stop wanting the global rule.
 - **`--no-install` / `-NoInstall`:** skip the dependency check (useful when just managing the CLAUDE.md section).
 
-The merged content comes from `scripts/claude-md-fragment.md` (single source — both OS scripts read it, so they cannot drift apart). Override the target home with `VISION_SETUP_HOME` for testing.
+The merged content comes from `scripts/claude-md-fragment.md` (single source: both OS scripts read it, so they cannot drift apart). Override the target home with `VISION_SETUP_HOME` for testing.
 
 ## Providers
 
@@ -101,7 +101,7 @@ The merged content comes from `scripts/claude-md-fragment.md` (single source —
 | Env var | Scope | Default |
 |---------|-------|---------|
 | `VISION_PROVIDER` | Default provider | auto-detect |
-| `{PROVIDER}_VISION_MODEL` | Override model (per provider, highest priority) | — |
+| `{PROVIDER}_VISION_MODEL` | Override model (per provider, highest priority) | - |
 | `VISION_MODEL` | Override model (all providers, fallback) | provider default |
 | `VISION_TEMPERATURE` | Response creativity 0–1 | `0` |
 | `VISION_MAX_TOKENS` | Max response tokens | `4096` |
@@ -139,5 +139,5 @@ When using the requested external provider, do not infer layout problems by read
    uv run "${SKILL_DIR}/scripts/vision.py" "shot.png" "Analyze layout problems: alignment, spacing, overflow, whitespace, truncation, empty regions, contrast, and responsiveness."
    ```
    Switch models with `--provider qwen` or `--provider openai` if the default underperforms.
-4. On Windows, if output shows garbled characters, re-read with GBK: `open(path, 'rb').read().decode('gbk')` — or just rely on `vision.py`'s built-in UTF-8 stdout fix (already applied).
+4. On Windows, if output shows garbled characters, re-read with GBK: `open(path, 'rb').read().decode('gbk')`, or just rely on `vision.py`'s built-in UTF-8 stdout fix (already applied).
 5. Aggregate every screenshot's findings into one complete, deduplicated issue list before reporting.

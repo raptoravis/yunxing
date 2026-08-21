@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vision skill setup — 跨平台双胞胎(setup.sh / setup.ps1),参数与 stdout 对齐。
+# vision skill setup: 跨平台双胞胎(setup.sh / setup.ps1),参数与 stdout 对齐。
 #
 # 用法:
 #   bash setup.sh                       # 依赖 smoke test,不动 CLAUDE.md
@@ -53,7 +53,7 @@ dep_check() {
             echo "vision-setup: dep-ok (uv present; smoke test non-fatal)"
         fi
     else
-        echo "vision-setup: dep-warn (uv not on PATH — install: pip install uv / winget install astral-sh.uv)"
+        echo "vision-setup: dep-warn (uv not on PATH: install: pip install uv / winget install astral-sh.uv)"
     fi
 }
 

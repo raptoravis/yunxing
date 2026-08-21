@@ -1,4 +1,4 @@
-﻿# vision skill setup — 跨平台双胞胎(setup.sh / setup.ps1),参数与 stdout 对齐。
+﻿# vision skill setup: 跨平台双胞胎(setup.sh / setup.ps1),参数与 stdout 对齐。
 #
 # 用法:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File setup.ps1                  # 依赖 smoke test,不动 CLAUDE.md

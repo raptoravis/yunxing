@@ -38,7 +38,7 @@ const mismatches = manifests.filter(
 );
 
 if (mismatches.length === 0) {
-  console.log(`plugin manifest versions are ${version} — already in sync`);
+  console.log(`plugin manifest versions are ${version} (already in sync)`);
   process.exit(0);
 }
 

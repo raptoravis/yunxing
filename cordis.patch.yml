@@ -1,4 +1,4 @@
-# Yunxing bundle patch — registers this package's promoted skill buckets as an
+# Yunxing bundle patch: registers this package's promoted skill buckets as an
 # isolated skill provider on top of whatever the profile already composes.
 #
 # `yunxing` is this package's own tiny Cordis plugin; it resolves its install

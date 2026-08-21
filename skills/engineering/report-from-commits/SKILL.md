@@ -11,7 +11,7 @@ Turn git history since an explicit date into a copy-pastable, non-technical repo
 
 **报告必须用中文输出。这是硬性要求，不是建议。**
 
-Every line of the final report — intro, section headings, bullets, all of it — must be written in Chinese. Inherently-English technical terms (API, SDK, UI, JSON, CLI) and Git author names or emails may stay as-is, but their surrounding description must be in Chinese. Before delivering the report, do a line-by-line check: if any sentence is in English, rewrite it in Chinese. Do not output the report until it passes this check.
+Every line of the final report (intro, section headings, bullets, all of it) must be written in Chinese. Inherently-English technical terms (API, SDK, UI, JSON, CLI) and Git author names or emails may stay as-is, but their surrounding description must be in Chinese. Before delivering the report, do a line-by-line check: if any sentence is in English, rewrite it in Chinese. Do not output the report until it passes this check.
 
 ## Decision Tree
 
@@ -19,7 +19,7 @@ What do you know already?
 
 - Exact start date in `YYYY-MM-DD` and the current working directory is the target git repo: continue.
 - Exact start date in `YYYY-MM-DD`, but the target repo is elsewhere: use the explicit repo path and continue.
-- Relative date such as "最近一个礼拜", "last week", "过去一个月", "最近3天", or "yesterday": resolve it to an exact `YYYY-MM-DD` using the resolution table below. Use today's date from the system context to compute the offset. Do not ask the user to rephrase — just resolve and proceed.
+- Relative date such as "最近一个礼拜", "last week", "过去一个月", "最近3天", or "yesterday": resolve it to an exact `YYYY-MM-DD` using the resolution table below. Use today's date from the system context to compute the offset. Do not ask the user to rephrase: just resolve and proceed.
 - No start date given at all (the user asked for a report without mentioning a date or `--since`): default to the last week. Resolve to `today - 7 days` using today's date from the system context, and proceed without asking.
 - Truly vague date such as "recently", "a while ago", "some time back", or "since the last push": stop and ask `What exact start date or relative range should I use? (e.g. "last week", "过去一个月", "最近3天")`. Do not proceed until the user answers.
 - No readable git repo in the current working directory and no repo path was provided: stop and ask for a readable git repository path.
@@ -55,7 +55,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 | Confirm the repo | Run `git rev-parse --show-toplevel` in the current directory, or `git -C /path/to/repo rev-parse --show-toplevel` when a repo path is provided. |
 | Gather commit context | Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD`. Add `--user <name-or-email>` to filter by author. If `--since` is omitted, the script defaults to the last week (7 days). |
 | Inspect more detail | Read `references/workflow.md` and then inspect targeted commits with `git show <commit>`. |
-| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. **Write the final report in Chinese — every line.** |
+| Shape the report | Use `templates/report-template.md` and the language rules in `references/output-format.md`. **Write the final report in Chinese: every line.** |
 | Handle edge cases | Read `references/gotchas.md`. |
 
 ## Operating Rules
@@ -83,8 +83,8 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 
 Use this exact standard:
 
-- **Every sentence of the report must be in Chinese.** This is the first and most important rule. Intro, headings, bullets — all Chinese. Inherently-English technical nouns (API, SDK, JSON, CLI) and Git author names or emails may remain unchanged. Before delivering, verify: no English sentences exist in the output.
-- Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。` — always include the total commit count and every identity's `commit_count` and `commit_percentage` from the `authors` summary in `collect_git_changes.py` output. List names once; append emails only to distinguish identical names.
+- **Every sentence of the report must be in Chinese.** This is the first and most important rule. Intro, headings, bullets: all Chinese. Inherently-English technical nouns (API, SDK, JSON, CLI) and Git author names or emails may remain unchanged. Before delivering, verify: no English sentences exist in the output.
+- Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。`: always include the total commit count and every identity's `commit_count` and `commit_percentage` from the `authors` summary in `collect_git_changes.py` output. List names once; append emails only to distinguish identical names.
 - Break the report into feature sections with short audience-friendly headings in Chinese.
 - Attribute every feature section to its author(s): directly under each heading, write `提交者：<姓名>` naming the author(s) of the commits grouped into that section. Draw names from the commit entries' `author.name`; when a section merges commits from multiple authors, list them all joined by `、`, and when two identities share a name, append their emails to distinguish them.
 - Keep each section to `2-3` bullets max.
@@ -103,7 +103,7 @@ Use this exact standard:
 
 ## Gotchas
 
-1. Truly vague dates (no time anchor) are still a hard stop — "recently", "a while ago". But relative dates with a clear offset ("最近一个礼拜", "last 3 days") should be resolved automatically.
+1. Truly vague dates (no time anchor) are still a hard stop: "recently", "a while ago". But relative dates with a clear offset ("最近一个礼拜", "last 3 days") should be resolved automatically.
 2. A long git log is not a report. Condense by feature and omit low-signal internal churn when it is not useful to the audience.
 3. Technical commit subjects are often misleading for a non-technical audience. Inspect the diff or surrounding files before rewriting them as audience-facing bullets.
 4. Multiple commits may represent one accomplishment. Merge them into one feature section instead of repeating the same theme.

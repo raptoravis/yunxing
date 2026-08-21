@@ -1,8 +1,8 @@
 {
   "name": "yunxing",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "private": true,
-  "description": "Yunxing agent skills — forked from mattpocock/skills",
+  "description": "Yunxing agent skills, forked from mattpocock/skills",
   "main": ".opencode/plugins/yunxing.mjs",
   "exports": {
     ".": "./.opencode/plugins/yunxing.mjs",

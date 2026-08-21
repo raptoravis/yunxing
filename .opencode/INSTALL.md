@@ -8,7 +8,7 @@ opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
 
 `--global` writes to your global config (`~/.config/opencode/opencode.json`); drop it to install into the current project's `opencode.json`. To pin a release, append a tag (`...#vX.Y.Z`).
 
-The plugin registers the promoted skill directories (`skills/engineering` and `skills/productivity`) — no separate install step required.
+The plugin registers the promoted skill directories (`skills/engineering` and `skills/productivity`): no separate install step required.
 
 Equivalently, add Yunxing to the `plugin` array by hand:
 

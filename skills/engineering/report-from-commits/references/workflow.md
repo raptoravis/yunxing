@@ -24,7 +24,7 @@ Do not proceed until you have a concrete `YYYY-MM-DD`.
 
 Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Omit `--since` to default to the last week (7 days). Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
 
-This gives you authors, subjects, scopes, files, and path counts in one pass — a fast high-level overview that lets you decide what needs deeper inspection. Use each entry's `commit_count` and `commit_percentage` in the top-level `authors` summary for the report intro.
+This gives you authors, subjects, scopes, files, and path counts in one pass: a fast high-level overview that lets you decide what needs deeper inspection. Use each entry's `commit_count` and `commit_percentage` in the top-level `authors` summary for the report intro.
 
 ## 4. Inspect selectively
 
@@ -39,7 +39,7 @@ Look for these grouping signals, in priority order:
 3. Customer-facing thread subjects
 4. Shared ticket or issue references in commit messages
 
-Merge related commits into one accomplishment. A single feature spread across five commits is one section, not five. While grouping, note which author(s) committed each section's commits — you will attribute each section to them with a `提交者` line when writing.
+Merge related commits into one accomplishment. A single feature spread across five commits is one section, not five. While grouping, note which author(s) committed each section's commits: you will attribute each section to them with a `提交者` line when writing.
 
 ## 6. Write the report
 

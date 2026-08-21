@@ -5,7 +5,7 @@ Usage:
     uv run vision.py [--provider <name>] <image_path> <prompt>
 
 `uv run` reads the PEP 723 dependency block below and auto-installs
-openai into an ephemeral environment — no manual install, no global
+openai into an ephemeral environment: no manual install, no global
 pollution. A bare `python vision.py` also works if openai is already
 on the path.
 
@@ -55,7 +55,7 @@ def _get_openai_client(api_key: str, base_url: str):
 # ── provider registry ──────────────────────────────────────────────
 PROVIDERS = {
     "doubao": {
-        # 豆包 / 字节跳动 Volcengine Ark — OpenAI 兼容。
+        # 豆包 / 字节跳动 Volcengine Ark: OpenAI 兼容。
         # key 优先读 ARK_API_KEY（方舟平台标准密钥），BD_API_KEY、
         # DOUBAO_API_KEY 作为旧名向后兼容。
         "key_envs": ["ARK_API_KEY", "BD_API_KEY", "DOUBAO_API_KEY"],
@@ -76,7 +76,7 @@ PROVIDERS = {
         "model_default": "gpt-4o",
     },
     "siliconflow": {
-        # 硅基流动 (SiliconFlow) — OpenAI 兼容的国内模型聚合平台,
+        # 硅基流动 (SiliconFlow): OpenAI 兼容的国内模型聚合平台,
         # 视觉模型可在 SILICONFLOW_VISION_MODEL 切换: Qwen/Qwen2.5-VL-72B-Instruct,
         # Qwen/Qwen2-VL-72B-Instruct, deepseek-ai/deepseek-vl2 等。
         "key_envs": ["SILICONFLOW_API_KEY"],
@@ -105,7 +105,7 @@ def load_dotenv(path: Path) -> None:
     """Load KEY=VALUE pairs from a .env file. Never overrides real env vars.
 
     Also populates _key_order so resolve_provider can pick the provider
-    whose key appears first in the file — the user controls priority by
+    whose key appears first in the file: the user controls priority by
     reordering lines in ~/.env.
     """
     global _key_order
@@ -129,7 +129,7 @@ def load_dotenv(path: Path) -> None:
         if key and key not in os.environ:
             os.environ[key] = val
         # Record the first occurrence of each key (duplicate keys later in
-        # the file are ignored — first write wins for ordering).
+        # the file are ignored: first write wins for ordering).
         if key and key not in _key_order:
             _key_order[key] = line_num
 
@@ -210,7 +210,7 @@ def vision(image_path: str, prompt: str, provider_name: str, config: dict) -> st
         sys.exit(1)
 
     # Warn when multiple key_envs are set for a provider (e.g. both
-    # BD_API_KEY and DOUBAO_API_KEY) — the first match wins silently.
+    # BD_API_KEY and DOUBAO_API_KEY): the first match wins silently.
     if len(config["key_envs"]) > 1:
         others = [k for k in config["key_envs"] if k != matched_key and os.environ.get(k, "")]
         if others:
@@ -226,7 +226,7 @@ def vision(image_path: str, prompt: str, provider_name: str, config: dict) -> st
     mime = MIME_MAP.get(ext)
     if mime is None:
         mime = "image/png"
-        print(f"Warning: unknown extension '{ext}' — assuming image/png. "
+        print(f"Warning: unknown extension '{ext}': assuming image/png. "
               f"Supported: {', '.join(MIME_MAP)}", file=sys.stderr)
     b64 = encode_image(image_path)
     data_uri = f"data:{mime};base64,{b64}"
@@ -258,7 +258,7 @@ def main():
     parser.add_argument("prompt", help="Text prompt for the vision model")
     args = parser.parse_args()
 
-    # load ~/.env (real env still wins) — VISION_ENV_FILE overrides the path
+    # load ~/.env (real env still wins): VISION_ENV_FILE overrides the path
     env_file = os.environ.get("VISION_ENV_FILE", str(Path.home() / ".env"))
     load_dotenv(Path(env_file))
 

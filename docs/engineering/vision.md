@@ -6,7 +6,7 @@ It is an explicit external-model escape hatch, not the default path for understa
 
 ## When to reach for it
 
-You invoke this by typing `/vision` — the agent won't reach for it on its own.
+You invoke this by typing `/vision`: the agent won't reach for it on its own.
 
 Reach for it when you specifically want an external provider or endpoint: to compare another model's interpretation, use provider-specific capabilities, or give a text-only harness access to a vision model. For ordinary screenshots, UI layouts, diagrams, charts, and mockups in a multimodal harness, use the model's native vision instead.
 

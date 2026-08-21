@@ -7,7 +7,7 @@ dsh plugin --profile web add github:raptoravis/yunxing
 ```
 
 The bundle registers the promoted skill directories (`skills/engineering` and
-`skills/productivity`) as an isolated skill provider — no separate install
+`skills/productivity`) as an isolated skill provider, no separate install
 step required.
 
 To pin a release, add the tag:

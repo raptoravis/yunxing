@@ -18,7 +18,7 @@ Before delivering the report, do a line-by-line scan. If any sentence is in Engl
 
 ## Structure
 
-- One-line intro naming the date range, total commit count, and every included commit author's count and share of the total (e.g. "以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。") Use `commit_count` and `commit_percentage` from each entry in the collector's `authors` summary. When two identities share a name, append their emails to distinguish them.
+- One-line intro naming the date range, effective-change commit count, and every included commit author's count and share of that total (e.g. "以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。") Use `commit_count` and `commit_percentage` from each entry in the collector's `authors` summary. When two identities share a name, append their emails to distinguish them.
 - Short feature headings per main accomplishment, with the section authors in the same heading (e.g. `## 结账体验（提交者：Alice）`). Draw names from the commit entries' `author.name`. When a section merges commits from multiple authors, list them all joined by `、`; when two identities share a name, append their emails.
 - Max 2-3 bullets per feature section.
 
@@ -43,7 +43,7 @@ Before delivering the report, do a line-by-line scan. If any sentence is in Engl
 - 2-3 bullets max per section
 - Every bullet safe for a non-technical audience
 - Duplicate themes across commits merged
-- Every included commit author appears in the intro with their commit count and percentage, with no uninvolved author added
+- Every included effective-change commit author appears in the intro with their commit count and percentage, with no uninvolved author added
 - Every feature section names its author(s) inside the heading, and the names match the commits actually grouped into that section
 - Output is paste-ready Markdown for email or chat
 - **全文使用中文**

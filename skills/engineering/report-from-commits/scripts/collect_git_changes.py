@@ -74,6 +74,7 @@ def collect_commits(
 ) -> list[dict[str, object]]:
     args = [
         "log",
+        "--no-merges",
         "--reverse",
         "--date=short",
         f"--since={since} 00:00:00",
@@ -101,6 +102,8 @@ def collect_commits(
             parts.append("")
         commit_hash, commit_date, author_name, author_email, subject, body = parts[:6]
         files = [line.strip() for line in lines[1:] if line.strip()]
+        if not files:
+            continue
         scope = extract_scope(subject)
 
         commits.append(

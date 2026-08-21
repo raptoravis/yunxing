@@ -24,7 +24,7 @@ Do not proceed until you have a concrete `YYYY-MM-DD`.
 
 Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Omit `--since` to default to the last week (7 days). Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
 
-This gives you authors, subjects, scopes, files, and path counts in one pass: a fast high-level overview that lets you decide what needs deeper inspection. Use each entry's `commit_count` and `commit_percentage` in the top-level `authors` summary for the report intro.
+This gives you authors, subjects, scopes, files, and path counts in one pass: a fast high-level overview that lets you decide what needs deeper inspection. The collector excludes merge commits and commits with no changed files before building every count and percentage. Use each entry's `commit_count` and `commit_percentage` in the top-level `authors` summary for the report intro.
 
 ## 4. Inspect selectively
 
@@ -47,7 +47,7 @@ Fill in the template, then check:
 
 - Grouped by feature, not by commit
 - Max 2-3 bullets per section
-- Intro includes every author represented by the collected commits, plus each author's commit count and percentage of the total
+- Intro includes every author represented by the collected effective-change commits, plus each author's commit count and percentage of that total
 - Each section names its author(s) inside the heading as `## <章节标题>（提交者：<姓名>）`, drawn from the commits grouped into that section
 - No hashes, filenames, branches, or internal tooling names
 - Plain Markdown, ready for email or chat

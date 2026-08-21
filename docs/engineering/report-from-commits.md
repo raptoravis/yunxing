@@ -19,11 +19,11 @@ Type `/report-from-commits`, or the agent reaches for it automatically when you 
 
 The skill's defining idea is **feature-grouped, not commit-by-commit**. A feature spread across eight commits produces one section with two or three bullets, not eight sections. Five unrelated commits touching the same directory are still grouped by what they accomplish, not by where the files live.
 
-It works because the skill inspects before it writes. The first pass runs `collect_git_changes.py`, which pulls every commit author, subject, scope, and touched file into one JSON document. Scopes from conventional commits (`feat(checkout):`, `fix(payment):`) and repeated top-level paths are the strongest grouping signals. When those are not enough, the skill inspects a few representative diffs, but only enough to group the work, never a full audit.
+It works because the skill inspects before it writes. The first pass runs `collect_git_changes.py`, which excludes merge commits and commits with no changed files, then pulls every remaining commit author, subject, scope, and touched file into one JSON document. Scopes from conventional commits (`feat(checkout):`, `fix(payment):`) and repeated top-level paths are the strongest grouping signals. When those are not enough, the skill inspects a few representative diffs, but only enough to group the work, never a full audit.
 
 The output contract is tight by design:
 
-- One-line date and total commit-count intro in Chinese, followed by every involved author's commit count and percentage
+- One-line date and effective-change commit-count intro in Chinese, followed by every involved author's commit count and percentage
 - Short feature headings in Chinese, each including `提交者：<姓名>` in the same heading
 - 2-3 outcome-first bullets per section, each one sentence, in Chinese
 - No hashes, no filenames, no branch names, no refactor jargon
@@ -43,7 +43,7 @@ Yes. Pass `--until YYYY-MM-DD` to `collect_git_changes.py` for bounded windows: 
 
 **Which authors appear in the report?**
 
-The opening line lists every author represented by the collected commits, with their commit count and percentage of all included commits. Percentages are calculated from the filtered report window, not the repository's lifetime history. Names are deduplicated, and email addresses appear only when two distinct identities use the same name. If you filter with `--user`, the list and percentages reflect the filtered commits rather than every contributor in the repository. Each feature section also names its author(s) inside the heading as `章节标题（提交者：姓名）`, drawing from the commits grouped into that section so a reader can see at a glance who did which piece of work.
+The opening line lists every author represented by the collected effective-change commits, with their commit count and percentage of that total. Merge commits and commits with no changed files do not appear in the collected commit list and do not affect the total or author percentages. Percentages are calculated from the filtered report window, not the repository's lifetime history. Names are deduplicated, and email addresses appear only when two distinct identities use the same name. If you filter with `--user`, the list and percentages reflect the filtered commits rather than every contributor in the repository. Each feature section also names its author(s) inside the heading as `章节标题（提交者：姓名）`, drawing from the commits grouped into that section so a reader can see at a glance who did which piece of work.
 
 **Why not just pipe `git log` into an LLM and ask for a summary?**
 
@@ -55,9 +55,9 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 - The report has 3-8 feature sections, not one section per commit.
 - Every bullet is safe to paste into a client or stakeholder email: no hashes, no filenames, no "refactored the middleware pipeline".
 - The report is written in Chinese: intro, headings, and all bullets.
-- The opening line includes the total commit count and every involved author's commit count and percentage alongside the date range.
+- The opening line includes the effective-change commit count and every involved author's commit count and percentage alongside the date range.
 - Each feature section names its author(s) inside the heading, matching the commits grouped into that section.
-- Merge commits, CI churn, and dependency bumps are either absent or folded into one modest "稳定性与基础设施" section.
+- Merge commits and empty commits are absent from the report and its statistics. CI churn and dependency bumps are either absent or folded into one modest "稳定性与基础设施" section.
 - A window with no meaningful changes produces a one-line honest answer, not a padded report.
 
 ## Where it fits

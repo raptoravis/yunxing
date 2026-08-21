@@ -65,9 +65,10 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 3. Confirm the repository context. If the current working directory is not a readable git repo, require an explicit repo path.
 4. Collect the commit list, author contribution statistics, and touched files first. Use `scripts/collect_git_changes.py` for a fast high-level pass, then inspect specific commits only when the summary is unclear. Pass `--user` when the user asks for a specific author's commits.
 5. Group the work by feature, workflow, or product area. Do not group by commit, file, branch, or engineer.
-6. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
-7. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
-8. Do not invent business impact. If the value is unclear, use conservative phrasing such as "推进了……工作" or "改进了……的基础".
+6. Attribute each feature section to its author(s). Under every section heading, write `提交者：<姓名>` naming who committed the work that section covers, using the `author.name` from the commit entries grouped into that section. When one section merges commits from multiple authors, list them all joined by `、`; when two identities share a name, append their emails (same disambiguation as the intro).
+7. Write for a non-technical audience. Remove hashes, filenames, code terms, refactor jargon, and internal tooling names unless they are truly audience-facing.
+8. Keep each main accomplishment to a heading plus `2-3` bullets max. Each bullet should be one short sentence.
+9. Do not invent business impact. If the value is unclear, use conservative phrasing such as "推进了……工作" or "改进了……的基础".
 
 ## Recommended Workflow
 
@@ -76,7 +77,7 @@ If the expression truly has no time anchor (e.g. "recently", "a while ago"), sto
 3. Run `python3 scripts/collect_git_changes.py --repo /path/to/repo --since YYYY-MM-DD` (add `--user <name-or-email>` if the user wants a specific author only) and review the JSON output. Omit `--since` to default to the last week.
 4. Inspect a few representative commits or diffs when the feature grouping is not obvious.
 5. Build a feature-based outline first, then write the audience-safe bullets.
-6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the total commit count and every author from the collector's `authors` summary in the opening line. For each author, show their `commit_count` and `commit_percentage` of the included commits. Show author names; when two identities share a name, append their emails to distinguish them. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**
+6. Write the final report in Chinese using `templates/report-template.md` as the shape. Include the total commit count and every author from the collector's `authors` summary in the opening line. For each author, show their `commit_count` and `commit_percentage` of the included commits. Show author names; when two identities share a name, append their emails to distinguish them. Attribute each feature section to the author(s) of its commits with a `提交者：<姓名>` line under the heading, listing all authors when a section merges multiple people's work. **Before delivering, scan every line: if any sentence is in English, rewrite it in Chinese. Do not skip this check.**
 
 ## Report Contract
 
@@ -85,6 +86,7 @@ Use this exact standard:
 - **Every sentence of the report must be in Chinese.** This is the first and most important rule. Intro, headings, bullets — all Chinese. Inherently-English technical nouns (API, SDK, JSON, CLI) and Git author names or emails may remain unchanged. Before delivering, verify: no English sentences exist in the output.
 - Start with a one-line intro such as `以下是自 2026-04-01 以来共 42 个提交的工作进展高层次更新。涉及提交者：Alice：30 个提交（71.4%）、Bob：12 个提交（28.6%）。` — always include the total commit count and every identity's `commit_count` and `commit_percentage` from the `authors` summary in `collect_git_changes.py` output. List names once; append emails only to distinguish identical names.
 - Break the report into feature sections with short audience-friendly headings in Chinese.
+- Attribute every feature section to its author(s): directly under each heading, write `提交者：<姓名>` naming the author(s) of the commits grouped into that section. Draw names from the commit entries' `author.name`; when a section merges commits from multiple authors, list them all joined by `、`, and when two identities share a name, append their emails to distinguish them.
 - Keep each section to `2-3` bullets max.
 - Make every bullet outcome-first and non-technical, written in Chinese.
 - Keep the output copy-pastable. Do not wrap it in analysis notes or a developer preamble.

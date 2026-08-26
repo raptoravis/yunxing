@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Yunxing agent skills, forked from mattpocock/skills, as an installable Cursor plugin.",
-    "version": "1.5.4"
+    "version": "1.5.5"
   },
   "plugins": [
     {

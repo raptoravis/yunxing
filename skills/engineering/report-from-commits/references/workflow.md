@@ -14,6 +14,8 @@ Stop and ask the user for a readable git repository path if this fails.
 
 If the user gives no date at all, default to the last week: `today - 7 days`. Compute it from today's date in the system context and proceed without asking.
 
+If the user gives a rolling "from now" window (e.g. "最近24小时", "last 24 hours"), pass `--last-days N` to the collector instead of resolving a date. `--last-days 1` means the last 24 hours from this moment: the window runs on exact timestamps from `now - N days` to `now`, not on midnight boundaries.
+
 If the user gives a relative date with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天"), resolve it to `YYYY-MM-DD` using the resolution table in the main SKILL.md. Only ask for clarification when the expression has no time anchor (e.g. "recently", "a while ago"):
 
 > What exact start date or relative range should I use? (e.g. "last week", "过去一个月", "最近3天")
@@ -22,7 +24,7 @@ Do not proceed until you have a concrete `YYYY-MM-DD`.
 
 ## 3. Gather context
 
-Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Omit `--since` to default to the last week (7 days). Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
+Run `python3 scripts/collect_git_changes.py --repo <path> --since <date>` first. Omit `--since` to default to the last week (7 days). Use `--last-days N` instead of `--since` for a rolling window from now (`--last-days 1` = the last 24 hours). Add `--until <date>` for bounded ranges. Add `--user <name-or-email>` to filter by a specific author.
 
 This gives you authors, subjects, scopes, files, and path counts in one pass: a fast high-level overview that lets you decide what needs deeper inspection. The collector excludes merge commits and commits with no changed files before building every count and percentage. Use each entry's `commit_count` and `commit_percentage` in the top-level `authors` summary for the report intro.
 

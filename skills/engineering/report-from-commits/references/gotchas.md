@@ -4,7 +4,7 @@ Common failure modes when translating git history into reports, and how to avoid
 
 ## 1. Ambiguous time windows
 
-When no date is given at all, default to the last week (`today - 7 days`) rather than asking. Relative dates with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天") should be resolved to `YYYY-MM-DD` automatically using the resolution table in the main SKILL.md. Only stop and ask when the expression has no time anchor (e.g. "recently", "a while ago", "some time back").
+When no date is given at all, default to the last week (`today - 7 days`) rather than asking. Relative dates with a clear time offset (e.g. "最近一个礼拜", "last week", "过去3天") should be resolved to `YYYY-MM-DD` automatically using the resolution table in the main SKILL.md. A rolling "from now" window ("最近24小时", "last 24 hours") should use `--last-days N` (`--last-days 1` = the last 24 hours), which runs on exact timestamps rather than midnight boundaries. Only stop and ask when the expression has no time anchor (e.g. "recently", "a while ago", "some time back").
 
 ## 2. Not in a git repo
 

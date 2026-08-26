@@ -4,6 +4,7 @@ collect_git_changes.py - Gather git commit context for a report.
 
 Usage:
     python3 collect_git_changes.py --repo /path/to/repo --since 2026-04-01
+    python3 collect_git_changes.py --repo /path/to/repo --last-days 1
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ import re
 import subprocess
 import sys
 from collections import Counter
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 
@@ -28,6 +29,16 @@ def exact_date(value: str) -> str:
             "Date must be exact and formatted as YYYY-MM-DD."
         )
     return value
+
+
+def positive_int(value: str) -> int:
+    try:
+        number = int(value)
+    except ValueError:
+        raise argparse.ArgumentTypeError("Must be a positive integer.")
+    if number <= 0:
+        raise argparse.ArgumentTypeError("Must be a positive integer.")
+    return number
 
 
 def run_git(repo: Path, args: list[str]) -> str:
@@ -77,13 +88,13 @@ def collect_commits(
         "--no-merges",
         "--reverse",
         "--date=short",
-        f"--since={since} 00:00:00",
+        f"--since={since}",
         f"--max-count={max_commits}",
         "--format=%x1e%H%x1f%ad%x1f%an%x1f%ae%x1f%s%x1f%b",
         "--name-only",
     ]
     if until:
-        args.insert(4, f"--until={until} 23:59:59")
+        args.insert(4, f"--until={until}")
     if user:
         args.insert(4, f"--author={user}")
 
@@ -178,10 +189,19 @@ def build_parser() -> argparse.ArgumentParser:
         default=".",
         help="Path to the readable git repository. Defaults to the current directory.",
     )
-    parser.add_argument(
+    date_group = parser.add_mutually_exclusive_group()
+    date_group.add_argument(
         "--since",
         type=exact_date,
         help="Exact start date in YYYY-MM-DD. Defaults to 7 days ago.",
+    )
+    date_group.add_argument(
+        "--last-days",
+        type=positive_int,
+        help=(
+            "Number of days to look back from now (e.g. --last-days 1 means "
+            "the last 24 hours). Mutually exclusive with --since."
+        ),
     )
     parser.add_argument(
         "--until",
@@ -201,16 +221,47 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def resolve_window(
+    since: str | None,
+    until: str | None,
+    last_days: int | None,
+    now: datetime,
+) -> tuple[str, str | None, str, str | None]:
+    """Return (since, until, since_date, until_date) for the git log filter.
+
+    `since` and `until` are complete timestamps git accepts. `since_date` and
+    `until_date` are the date-only labels reported back in the payload. When
+    `last_days` is set, the window runs from `now - last_days` days to `now`;
+    otherwise it is an open-ended range from `since` (defaulting to 7 days ago).
+    """
+    if last_days is not None:
+        since_dt = now - timedelta(days=last_days)
+        return (
+            since_dt.strftime("%Y-%m-%d %H:%M:%S"),
+            now.strftime("%Y-%m-%d %H:%M:%S"),
+            since_dt.date().isoformat(),
+            now.date().isoformat(),
+        )
+
+    if since is None:
+        since = (date.today() - timedelta(days=7)).isoformat()
+
+    since_ts = f"{since} 00:00:00"
+    until_ts = f"{until} 23:59:59" if until else None
+    return since_ts, until_ts, since, until
+
+
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
 
-    if args.since is None:
-        args.since = (date.today() - timedelta(days=7)).isoformat()
+    since, until, since_date, until_date = resolve_window(
+        args.since, args.until, args.last_days, datetime.now()
+    )
 
     try:
         repo = ensure_repo(Path(args.repo).resolve())
-        commits = collect_commits(repo, args.since, args.until, args.max_commits, args.user)
+        commits = collect_commits(repo, since, until, args.max_commits, args.user)
     except (FileNotFoundError, RuntimeError, ValueError) as exc:
         print(str(exc), file=sys.stderr)
         return 1
@@ -218,8 +269,8 @@ def main() -> int:
     summary = summarize(commits)
     payload = {
         "repo_root": str(repo),
-        "since": args.since,
-        "until": args.until,
+        "since": since_date,
+        "until": until_date,
         **summary,
         "commits": commits,
     }

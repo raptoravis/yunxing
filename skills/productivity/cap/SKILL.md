@@ -1,10 +1,10 @@
 ---
-name: cp
+name: cap
 description: Commit all changes, push, and handle remote-ahead / merge-conflict scenarios automatically.
 disable-model-invocation: true
 ---
 
-# cp: commit & push
+# cap: commit & push
 
 Commit all current changes and push to the remote. If the remote has moved ahead, pull and merge first. If merge conflicts arise, resolve them, then push.
 

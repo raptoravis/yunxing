@@ -88,7 +88,7 @@ Off the main flow entirely.
 - **`/writing-for-agents`** is the reference for writing documents agents consume: skills, AGENTS.md, pointed-at docs.
 - **`/sync-ups`** absorbs incremental changes from `mattpocock/skills` into this fork, preserving local branding and custom skills while advancing a recorded baseline.
 - **`/vision`** explicitly sends an image to a configured external vision provider. Use it only when you want an external endpoint instead of the current model's native vision; the agent never invokes it automatically.
-- **`/cp`** commits and pushes the current changes, then walks through pull, merge, conflict resolution, and another push if the remote is ahead.
+- **`/cap`** commits and pushes the current changes, then walks through pull, merge, conflict resolution, and another push if the remote is ahead.
 
 ## Precondition
 

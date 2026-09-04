@@ -1,0 +1,15 @@
+{
+  "name": "yunxing",
+  "owner": {
+    "name": "raptoravis"
+  },
+  "description": "Yunxing agent skills, forked from mattpocock/skills, as an installable Grok Build plugin.",
+  "plugins": [
+    {
+      "name": "yunxing",
+      "description": "Yunxing agent skills (grilling, spec/ticket flows, TDD, code review, domain modelling and more).",
+      "category": "engineering",
+      "source": { "type": "local", "path": "." }
+    }
+  ]
+}

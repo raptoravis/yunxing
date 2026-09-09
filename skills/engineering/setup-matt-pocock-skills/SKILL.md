@@ -2,6 +2,7 @@
 name: setup-matt-pocock-skills
 description: "Configure this repo for the engineering skills: set up its issue tracker, triage label vocabulary, domain doc layout, shared AGENTS.md/CLAUDE.md instructions, and native-first image understanding guidance. Run once before first use of the other engineering skills."
 disable-model-invocation: true
+slash: true
 ---
 
 # Setup Matt Pocock's Skills

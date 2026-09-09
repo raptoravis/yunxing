@@ -2,6 +2,7 @@
 name: vision
 description: Call a user-selected external vision provider (Doubao/ByteDance Volcengine Ark, Qwen, OpenAI, SiliconFlow, or any OpenAI-compatible endpoint) to analyze images.
 disable-model-invocation: true
+slash: true
 ---
 
 # vision

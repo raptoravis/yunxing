@@ -1,6 +1,7 @@
 ---
 name: report-from-commits
 description: Turn git commits and diffs since an exact date into a copy-pastable, non-technical report grouped by feature. Use when the user wants a client update, weekly progress, stakeholder recap, high-level git-history summary, or commit-based progress report. Do NOT use when the date is ambiguous or the user wants engineering release notes.
+slash: true
 ---
 
 # report-from-commits

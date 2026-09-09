@@ -9,6 +9,8 @@ Each harness excludes a user-invoked skill from the model's reach in its own way
 
 Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata: `interface.display_name` and `interface.short_description` for the skill picker, and, for user-invoked skills, the `policy.allow_implicit_invocation: false` that pairs with `disable-model-invocation`. Keep the two in sync: a skill is user-invoked in both harnesses or neither.
 
+OpenCode has its own marker for making a skill a slash command: `slash: true` in the `SKILL.md` frontmatter. OpenCode does not read `disable-model-invocation`, so `slash: true` is what makes a skill reachable as `/name` there. Every promoted skill carries `slash: true`, because every promoted skill is human-reachable, whether user-invoked or model-invoked.
+
 Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 
 ## Dependencies between them

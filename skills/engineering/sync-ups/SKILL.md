@@ -2,6 +2,7 @@
 name: sync-ups
 description: "Sync this fork forward from the upstream mattpocock/skills repo: pull new skills, merge changes to existing ones, absorb deletions, and keep all references (plugin manifests, READMEs, docs pages) in lockstep. Tracks a baseline so each run syncs only the upstream diff."
 disable-model-invocation: true
+slash: true
 ---
 
 # Sync Upstream

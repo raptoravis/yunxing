@@ -2,6 +2,7 @@
 name: cap
 description: Commit all changes, push, and handle remote-ahead / merge-conflict scenarios automatically.
 disable-model-invocation: true
+slash: true
 ---
 
 # cap: commit & push

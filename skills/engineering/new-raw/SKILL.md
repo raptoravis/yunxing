@@ -3,6 +3,7 @@ name: new-raw
 description: "Capture a raw requirement exactly as given: no clarification, no alignment, no dialogue. Creates a GitHub/GitLab issue (so you can paste images) or a local markdown file as fallback. Feeds into /grill-with-docs and /to-spec."
 disable-model-invocation: true
 argument-hint: "[raw requirement text to capture as-is]"
+slash: true
 ---
 
 # Capture a Raw Requirement

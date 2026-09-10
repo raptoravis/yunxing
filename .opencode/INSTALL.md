@@ -8,7 +8,7 @@ opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
 
 `--global` writes to your global config (`~/.config/opencode/opencode.json`); drop it to install into the current project's `opencode.json`. To pin a release, append a tag (`...#vX.Y.Z`).
 
-The plugin is an OpenCode v2 plugin: it registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as skill sources, so no separate install step is required. Each skill whose `SKILL.md` frontmatter carries `slash: true` (every promoted skill) is exposed as a `/name` slash command, so `/cap`, `/tdd`, and the rest are reachable directly.
+The plugin registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as skill sources, so no separate install step is required. OpenCode 1.x hides skill-sourced entries from its slash command catalog, so the plugin also registers each promoted skill carrying `slash: true` as an equivalent custom command. `/cap`, `/tdd`, and the rest are therefore visible and runnable from the `/` menu while remaining available through the native skill tool.
 
 Equivalently, add Yunxing to the `plugin` array by hand:
 

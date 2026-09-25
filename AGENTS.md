@@ -36,15 +36,15 @@ No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`,
 
 ### Issue tracker
 
-Issues and PRDs are tracked in GitHub Issues. See `docs/agents/issue-tracker.md`.
+Issues and PRDs are tracked in GitHub Issues. See `.yunxing/agents/issue-tracker.md`.
 
 ### Triage labels
 
-Use the five default triage labels. See `docs/agents/triage-labels.md`.
+Use the five default triage labels. See `.yunxing/agents/triage-labels.md`.
 
 ### Domain docs
 
-This is a single-context repo. See `docs/agents/domain.md`.
+This is a single-context repo. See `.yunxing/agents/domain.md`.
 
 ### Image understanding
 

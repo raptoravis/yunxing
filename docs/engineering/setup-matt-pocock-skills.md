@@ -1,8 +1,8 @@
 ## What it does
 
-`setup-matt-pocock-skills` answers three questions about one repo: where issues live, what the triage labels are called, and where the domain docs sit. It records the answers as markdown files under `docs/agents/`. It also keeps shared harness instructions in `AGENTS.md`, imports them into Claude through a one-line `CLAUDE.md`, and adds native-first image-understanding guidance.
+`setup-matt-pocock-skills` answers three questions about one repo: where issues live, what the triage labels are called, and where the domain docs sit. It records the answers as markdown files under `.yunxing/agents/`. It also keeps shared harness instructions in `AGENTS.md`, imports them into Claude through a one-line `CLAUDE.md`, and adds native-first image-understanding guidance.
 
-Those files are the only thing that varies between repos. The skills themselves are identical everywhere; they read `docs/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why no skill file ever needs editing to point it somewhere else. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with zero changes to the skills.
+Those files are the only thing that varies between repos. The skills themselves are identical everywhere; they read `.yunxing/agents/issue-tracker.md` at run time and do what it says. That is why the set is not tied to GitHub, and why no skill file ever needs editing to point it somewhere else. Invoking it with "link the skills to a custom issue tracker" works with anything you can connect to programmatically, with zero changes to the skills.
 
 It is a prompt-driven skill, not a deterministic script. It reads your `git remote`, your existing `CLAUDE.md`, your existing `CONTEXT.md`, proposes what it found, and waits for you to confirm before writing anything.
 
@@ -18,9 +18,9 @@ It writes into the repo you run it in:
 
 | It writes | Where |
 | --- | --- |
-| `issue-tracker.md` | `docs/agents/` |
-| `domain.md` | `docs/agents/` |
-| `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
+| `issue-tracker.md` | `.yunxing/agents/` |
+| `domain.md` | `.yunxing/agents/` |
+| `triage-labels.md` | `.yunxing/agents/`, only when the `triage` skill is installed |
 | Shared agent guidance | `AGENTS.md`, including `## Agent skills` and image-understanding rules |
 | Claude import | `CLAUDE.md`, containing only `@AGENTS.md` |
 
@@ -34,7 +34,7 @@ It leads each section with the recommended answer, and skips whatever exploratio
 | --- | --- | --- |
 | **Issue tracker** | the one matching your `git remote` | always: this is the one real choice |
 | **Triage labels** | keep the five canonical names (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`) | only if the `triage` skill is installed |
-| **Domain docs** | single-context: one `CONTEXT.md` plus `docs/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `CONTEXT-MAP.md` |
+| **Domain docs** | single-context: one `CONTEXT.md` plus `.yunxing/adr/` at the root | only if it spots monorepo signals, and then it offers a multi-context `CONTEXT-MAP.md` |
 
 The tracker options:
 
@@ -47,7 +47,7 @@ The tracker options:
 
 The first three ship as templates in the skill and work out of the box. Local markdown is a first-class option, not a fallback: a solo project with no remote is fully supported. One caveat is worth repeating: don't use local markdown if you're using GitHub. They are alternatives, not layers.
 
-"Other" is not a stub either. It is the reason Jira, Linear, Azure DevOps and Beads all work: you describe the workflow, the skill records your prose in `docs/agents/issue-tracker.md`, and the downstream skills follow the prose. The community has already done this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
+"Other" is not a stub either. It is the reason Jira, Linear, Azure DevOps and Beads all work: you describe the workflow, the skill records your prose in `.yunxing/agents/issue-tracker.md`, and the downstream skills follow the prose. The community has already done this: a Jira-over-[MCP](https://www.aihero.dev/ai-coding-dictionary/mcp) variant, a Gitea CLI shaped like `gh`, a hand-built local dashboard.
 
 ## Common questions
 
@@ -57,7 +57,7 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 **Do I need to re-run it after updating the skills?**
 
-Only when the repository guidance or seed templates changed, or when you want to switch trackers or start over. The seed templates can change between releases, so a `docs/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
+Only when the repository guidance or seed templates changed, or when you want to switch trackers or start over. The seed templates can change between releases, so a `.yunxing/agents/issue-tracker.md` written by an older release can go stale against the skills now reading it. If a downstream skill starts doing something the docs describe differently, re-running is the cheap fix.
 
 **Where do Claude and Codex read the shared guidance?**
 
@@ -65,7 +65,7 @@ The skill keeps `AGENTS.md` canonical for Codex and other compatible [harnesses]
 
 **It didn't create my triage labels.**
 
-It doesn't. `docs/agents/triage-labels.md` is a *mapping*: it tells `/triage` which strings in your tracker correspond to the five canonical roles. It does not run `gh label create`. On a fresh GitHub repo the labels genuinely do not exist yet, and this has been filed as a bug more than once. Two follow-ons:
+It doesn't. `.yunxing/agents/triage-labels.md` is a *mapping*: it tells `/triage` which strings in your tracker correspond to the five canonical roles. It does not run `gh label create`. On a fresh GitHub repo the labels genuinely do not exist yet, and this has been filed as a bug more than once. Two follow-ons:
 
 - If your tracker already uses the canonical names, the mapping is an identity table and there is nothing to configure. That is the intended common case, not a missing step.
 - [wayfinder](https://aihero.dev/skills-wayfinder)'s `wayfinder:map` and `wayfinder:<type>` labels are not created here either, and `gh issue create --label <missing>` fails outright rather than creating the label. Create them by hand before the first wayfinder run on a GitHub repo.
@@ -76,7 +76,7 @@ No. It configures three things: tracker, labels, doc layout. There have been dir
 
 **Can I keep the config in `~/.claude` instead of committing it to every repo?**
 
-Not today. There is an open request for exactly this from someone running the skills across many repos, and no user-level mode exists. Every repo carries its own `docs/agents/`.
+Not today. There is an open request for exactly this from someone running the skills across many repos, and no user-level mode exists. Every repo carries its own `.yunxing/agents/`.
 
 **Isn't it strange to have a skill that configures the other skills?**
 
@@ -84,7 +84,7 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 
 ## It's working if
 
-- `docs/agents/issue-tracker.md` and `docs/agents/domain.md` exist, plus `triage-labels.md` if `triage` is installed.
+- `.yunxing/agents/issue-tracker.md` and `.yunxing/agents/domain.md` exist, plus `triage-labels.md` if `triage` is installed.
 - `AGENTS.md` contains one `## Agent skills` section and one native-first image-understanding section, while `CLAUDE.md` contains only `@AGENTS.md`.
 - The tracker it proposed matches the remote you really use, and the label strings match labels that really exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.

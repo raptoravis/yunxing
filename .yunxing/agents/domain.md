@@ -6,7 +6,7 @@ How the engineering skills should consume this repo's domain documentation.
 
 - `CONTEXT.md` at the repo root.
 - `CONTEXT-MAP.md` if it exists.
-- Relevant ADRs under `docs/adr/`.
+- Relevant ADRs under `.yunxing/adr/`.
 
 If any are absent, proceed silently. Domain-modeling workflows create them lazily when needed.
 
@@ -16,7 +16,7 @@ This is a single-context repo:
 
 /
 ├── CONTEXT.md
-├── docs/adr/
+├── .yunxing/adr/
 └── src/
 
 ## Use the glossary's vocabulary

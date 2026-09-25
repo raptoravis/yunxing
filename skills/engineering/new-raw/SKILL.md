@@ -32,17 +32,17 @@ Use the argument passed to this skill as the raw text. If none was provided, ask
 
 ### 2. Decide where to publish
 
-Read the issue tracker config. If `docs/agents/issue-tracker.md` exists:
+Read the issue tracker config. If `.yunxing/agents/issue-tracker.md` exists:
 
 - **GitHub** → create an issue via `gh issue create`.
 - **GitLab** → create an issue via `glab issue create`.
 - **Local markdown** → use the local-file path below.
 
-If `docs/agents/issue-tracker.md` doesn't exist (setup never ran), default to the local-file path.
+If `.yunxing/agents/issue-tracker.md` doesn't exist (setup never ran), default to the local-file path.
 
 **Local-file path:** `<root>/raw-requests/YYYY-MM-DD-NNN-<topic>.md`
 
-- `<root>`: if `docs/` exists and is the configured doc root, use `docs/raw-requests/`. Otherwise `raw-requests/` at the repo root.
+- `<root>`: if `.yunxing/` exists and is the configured doc root, use `.yunxing/raw-requests/`. Otherwise `raw-requests/` at the repo root.
 - `YYYY-MM-DD`: today's date.
 - `NNN`: zero-padded sequence number for today, starting at `001`. Check existing files for today, increment.
 - `<topic>`: short kebab-case slug from the first few meaningful words (~5 words, ~40 chars). If no usable words, use `untitled`.
@@ -58,7 +58,7 @@ gh issue create \
 
 - `--title`: use the same `<topic>` slug, but in human-readable form (spaces, capitalisation). Derive it from the raw text: take the first phrase that captures the gist.
 - `--body`: the raw text exactly as received. Do not add extra formatting, templates, or commentary.
-- `--label`: apply `needs-triage` (or the equivalent from `docs/agents/triage-labels.md` if configured differently). If the label doesn't exist on the repo, create it or omit it: don't block on the label.
+- `--label`: apply `needs-triage` (or the equivalent from `.yunxing/agents/triage-labels.md` if configured differently). If the label doesn't exist on the repo, create it or omit it: don't block on the label.
 
 After creation, note the issue number. The user can now open it on GitHub and paste images, screenshots, or diagrams directly into the issue body.
 

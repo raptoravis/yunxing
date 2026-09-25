@@ -24,7 +24,7 @@ Reach for it when the *words* are the problem:
 None up front. The skill writes into two places and creates both lazily:
 
 - **`CONTEXT.md`** at the repo root, created by the first resolved term. In a repo with a `CONTEXT-MAP.md` at the root, terms go into the per-context `CONTEXT.md` the map points at instead.
-- **`docs/adr/`**, created by the first ADR that clears the bar.
+- **`.yunxing/adr/`**, created by the first ADR that clears the bar.
 
 Nothing needs to exist before you start, and nothing is created speculatively.
 
@@ -32,7 +32,7 @@ Nothing needs to exist before you start, and nothing is created speculatively.
 
 The glossary and the ADR are held to different standards, and conflating them is where most of the trouble in this skill comes from.
 
-| | `CONTEXT.md` | `docs/adr/NNNN-slug.md` |
+| | `CONTEXT.md` | `.yunxing/adr/NNNN-slug.md` |
 | --- | --- | --- |
 | Holds | Terms. What a thing **is**, in one or two sentences, with rejected synonyms under `_Avoid_` | One decision, in one to three sentences: context, choice, reason |
 | Bar to write | A vague term became canonical | **All three**: hard to reverse, surprising without context, the result of a real trade-off |
@@ -47,7 +47,7 @@ The `CONTEXT.md` rule is the one to actually hold onto, because it is the one th
 
 The move that makes the skill click: when you state how something works, it checks the code and surfaces the contradiction. *"Your code cancels entire Orders, but you just said partial cancellation is possible, which is right?"* The language and the code are made to agree, out loud, before either is changed.
 
-The limit is worth knowing. It cross-references **code** and the committed `CONTEXT.md`/ADRs, and nothing else. It does not search your issue tracker, so a naming collision that was argued out and deliberately settled in a closed issue months ago gets surfaced as if it were new. There is [an open request](https://github.com/mattpocock/skills/issues/717) to fix this; until then, the workaround is to put the instruction in your own `docs/agents/domain.md`, which the skills already read.
+The limit is worth knowing. It cross-references **code** and the committed `CONTEXT.md`/ADRs, and nothing else. It does not search your issue tracker, so a naming collision that was argued out and deliberately settled in a closed issue months ago gets surfaced as if it were new. There is [an open request](https://github.com/mattpocock/skills/issues/717) to fix this; until then, the workaround is to put the instruction in your own `.yunxing/agents/domain.md`, which the skills already read.
 
 ## Common questions
 

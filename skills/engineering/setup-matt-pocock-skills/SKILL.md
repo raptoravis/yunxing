@@ -31,8 +31,27 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `.scratch/`: a sign that a local-markdown issue tracker convention is already in use
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. These are present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
+- Legacy `docs/agents/`, `docs/adr/`, or `docs/raw-requests/`: the pre-`.yunxing` layout. Their presence means the repo predates the migration and needs a one-time move.
 
-### 2. Present findings and ask
+### 2. Migrate a legacy `docs/` layout (if present)
+
+If exploration found `docs/agents/`, `docs/adr/`, or `docs/raw-requests/`, the repo still uses the pre-`.yunxing` layout. Tell the user what you found, then move it in place before continuing:
+
+> This repo still uses the old `docs/` layout (`docs/agents/` and/or `docs/adr/`). I'll move it to `.yunxing/` so the skills keep reading it.
+
+Create `.yunxing/` if it does not exist yet, then run each command whose source directory exists:
+
+```bash
+git mv docs/agents .yunxing/agents
+git mv docs/adr .yunxing/adr
+git mv docs/raw-requests .yunxing/raw-requests
+```
+
+Skip a command when its source directory is absent. If the target already exists (both `docs/adr/` and `.yunxing/adr/` are present), don't overwrite: move the contents across and tell the user where the collision was rather than guessing.
+
+After the move the config and ADRs are already in place, so treat the repo as already-configured: skip the issue-tracker and triage-label questions and don't regenerate the `.yunxing/agents/*.md` files that now exist. A repo with no `docs/` layout has nothing to migrate; move straight to the next section.
+
+### 3. Present findings and ask
 
 Summarise what's present and what's missing. Then take the sections in order. One section, one answer, then the next.
 
@@ -63,7 +82,7 @@ The defaults are the five canonical roles, each label string equal to its name: 
 
 Offer **multi-context** (a root `CONTEXT-MAP.md` pointing to per-context `CONTEXT.md` files) only when exploration found monorepo signals. Then confirm which layout they want.
 
-### 3. Confirm and edit
+### 4. Confirm and edit
 
 Show the user a draft of:
 
@@ -75,7 +94,7 @@ Show the user a draft of:
 
 Let them edit before writing.
 
-### 4. Write
+### 5. Write
 
 **Canonicalize the instruction files:**
 
@@ -127,6 +146,6 @@ Then write the docs files using the seed templates in this skill folder as a sta
 
 For "other" issue trackers, write `.yunxing/agents/issue-tracker.md` from scratch using the user's description.
 
-### 5. Done
+### 6. Done
 
 Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `.yunxing/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.

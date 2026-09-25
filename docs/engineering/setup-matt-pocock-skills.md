@@ -26,6 +26,8 @@ It writes into the repo you run it in:
 
 All of it is committed markdown. There is no user-level or global mode: the config lives in the repo, so every repo gets its own copy.
 
+On a repo that predates the `.yunxing` layout, the skill detects the old `docs/agents/`, `docs/adr/`, and `docs/raw-requests/` directories and migrates them to `.yunxing/` before anything else, so an already-configured repo is not asked to re-answer its setup.
+
 ## The three decisions
 
 It leads each section with the recommended answer, and skips whatever exploration already settled. Most runs are two confirmations and done.

@@ -70,10 +70,14 @@ opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
 <summary><strong>DeepSeek Harness (dsh)</strong></summary>
 
 ```bash
-dsh plugin --profile web add github:raptoravis/yunxing
+# One install per profile: a profile without the bundle serves that session no yunxing skills.
+for profile in "${DSH_HOME:-$HOME/.dsh}"/profiles/*/; do
+  [ -f "${profile}package.json" ] || continue
+  dsh plugin --profile "$(basename "$profile")" add github:raptoravis/yunxing
+done
 ```
 
-The bundle registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as an isolated skill provider. Pin a release with `github:raptoravis/yunxing#vX.Y.Z`.
+The bundle registers the promoted skill directories (`skills/engineering` and `skills/productivity`) as an isolated skill provider. Pin a release with `github:raptoravis/yunxing#vX.Y.Z`, and run the command again after creating a new profile.
 
 </details>
 

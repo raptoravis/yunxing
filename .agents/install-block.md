@@ -72,7 +72,7 @@ The bundle registers the promoted skill directories (`skills/engineering` and `s
 opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"
 ```
 
-The plugin registers the promoted skill directories (`skills/engineering` and `skills/productivity`). Pin a release with `yunxing@git+https://github.com/raptoravis/yunxing.git#vX.Y.Z`.
+The plugin registers the promoted skills (`skills/engineering` and `skills/productivity`) as model-facing skills and slash commands on OpenCode 1.x and 2.x. Pin a release with `yunxing@git+https://github.com/raptoravis/yunxing.git#vX.Y.Z`.
 
 </canonical-block>
 

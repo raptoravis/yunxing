@@ -9,7 +9,7 @@ Each harness excludes a user-invoked skill from the model's reach in its own way
 
 Every skill also carries an `agents/openai.yaml` beside its `SKILL.md`. It holds Codex UI metadata: `interface.display_name` and `interface.short_description` for the skill picker, and, for user-invoked skills, the `policy.allow_implicit_invocation: false` that pairs with `disable-model-invocation`. Keep the two in sync: a skill is user-invoked in both harnesses or neither.
 
-The Yunxing OpenCode plugin uses `slash: true` in `SKILL.md` as its marker for generating a matching custom command. OpenCode 1.x ignores that frontmatter field and hides native skill entries from the `/` catalog, so `.opencode/plugins/yunxing.mjs` must register the skill source and an equivalent `config.command` entry. Every promoted skill carries `slash: true`, because every promoted skill is human-reachable, whether user-invoked or model-invoked.
+The Yunxing OpenCode plugin uses `slash: true` in `SKILL.md` as its marker for generating a matching custom command. OpenCode 1.x ignores that frontmatter field and hides native skill entries from the `/` catalog, so `.opencode/plugins/yunxing.mjs` registers the skill source and an equivalent `config.command` entry through the 1.x `config` hook. OpenCode 2.x drops that hook, so the plugin registers the same skills and commands through the 2.x `skill` and `command` transforms in `setup`, mapping `disable-model-invocation: true` to `autoinvoke: false`. Every promoted skill carries `slash: true`, because every promoted skill is human-reachable, whether user-invoked or model-invoked.
 
 Bucket `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**.
 

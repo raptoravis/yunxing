@@ -26,7 +26,7 @@ It writes into the repo you run it in:
 
 All of it is committed markdown. There is no user-level or global mode: the config lives in the repo, so every repo gets its own copy.
 
-On a repo that predates the `.yunxing` layout, the skill detects the old `docs/agents/`, `docs/adr/`, and `docs/raw-requests/` directories and migrates them to `.yunxing/` before anything else, so an already-configured repo is not asked to re-answer its setup.
+On a repo that predates the newer layout, the skill detects the old `docs/agents/`, `docs/adr/`, and `docs/raw-requests/` directories and migrates them to `.yunxing/`, and renames a legacy `CONTEXT.md` (or `CONTEXT-MAP.md`) to `GLOSSARY.md` (or `GLOSSARY-MAP.md`), before anything else, so an already-configured repo is not asked to re-answer its setup.
 
 ## The three decisions
 

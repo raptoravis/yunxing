@@ -32,10 +32,13 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. These are present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
 - Legacy `docs/agents/`, `docs/adr/`, or `docs/raw-requests/`: the pre-`.yunxing` layout. Their presence means the repo predates the migration and needs a one-time move.
+- Legacy `CONTEXT.md` or `CONTEXT-MAP.md` at the repo root: the pre-`GLOSSARY` domain-doc name. Their presence means the repo predates the rename and needs a one-time move.
 
-### 2. Migrate a legacy `docs/` layout (if present)
+### 2. Migrate legacy layouts (if present)
 
-If exploration found `docs/agents/`, `docs/adr/`, or `docs/raw-requests/`, the repo still uses the pre-`.yunxing` layout. Tell the user what you found, then move it in place before continuing:
+The skills changed two things over their history: the domain docs moved from `docs/` to `.yunxing/`, and the glossary was renamed from `CONTEXT.md` to `GLOSSARY.md`. A repo configured by an older release may still use either old convention. Migrate whatever exploration found before continuing.
+
+**Legacy `docs/` layout.** If exploration found `docs/agents/`, `docs/adr/`, or `docs/raw-requests/`, the repo still uses the pre-`.yunxing` layout. Tell the user what you found, then move it in place:
 
 > This repo still uses the old `docs/` layout (`docs/agents/` and/or `docs/adr/`). I'll move it to `.yunxing/` so the skills keep reading it.
 
@@ -47,9 +50,20 @@ git mv docs/adr .yunxing/adr
 git mv docs/raw-requests .yunxing/raw-requests
 ```
 
-Skip a command when its source directory is absent. If the target already exists (both `docs/adr/` and `.yunxing/adr/` are present), don't overwrite: move the contents across and tell the user where the collision was rather than guessing.
+**Legacy `CONTEXT.md` name.** If exploration found `CONTEXT.md` or `CONTEXT-MAP.md` at the repo root, the repo still uses the pre-`GLOSSARY` name. Tell the user, then rename in place:
 
-After the move the config and ADRs are already in place, so treat the repo as already-configured: skip the issue-tracker and triage-label questions and don't regenerate the `.yunxing/agents/*.md` files that now exist. A repo with no `docs/` layout has nothing to migrate; move straight to the next section.
+> This repo still uses the old `CONTEXT.md` name. I'll rename it to `GLOSSARY.md` so the skills keep reading it.
+
+```bash
+git mv CONTEXT.md GLOSSARY.md
+git mv CONTEXT-MAP.md GLOSSARY-MAP.md
+```
+
+In a multi-context repo, rename each `src/<context>/CONTEXT.md` to `src/<context>/GLOSSARY.md` the same way.
+
+Skip a command whose source file or directory is absent. If both names are present (e.g. `CONTEXT.md` and `GLOSSARY.md` both exist, or `docs/adr/` and `.yunxing/adr/` both exist), don't overwrite: tell the user where the collision is and let them merge by hand rather than guessing which copy is canonical.
+
+After the moves the config, ADRs, and glossary are already in place, so treat the repo as already-configured: skip the issue-tracker and triage-label questions and don't regenerate the `.yunxing/agents/*.md` files that now exist. A repo with no legacy layout or name has nothing to migrate; move straight to the next section.
 
 ### 3. Present findings and ask
 

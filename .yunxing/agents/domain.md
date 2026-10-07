@@ -4,8 +4,8 @@ How the engineering skills should consume this repo's domain documentation.
 
 ## Before exploring, read these
 
-- `CONTEXT.md` at the repo root.
-- `CONTEXT-MAP.md` if it exists.
+- `GLOSSARY.md` at the repo root.
+- `GLOSSARY-MAP.md` if it exists.
 - Relevant ADRs under `.yunxing/adr/`.
 
 If any are absent, proceed silently. Domain-modeling workflows create them lazily when needed.
@@ -15,13 +15,13 @@ If any are absent, proceed silently. Domain-modeling workflows create them lazil
 This is a single-context repo:
 
 /
-├── CONTEXT.md
+├── GLOSSARY.md
 ├── .yunxing/adr/
 └── src/
 
 ## Use the glossary's vocabulary
 
-Use terms as defined in `CONTEXT.md`. Avoid synonyms the glossary explicitly rejects.
+Use terms as defined in `GLOSSARY.md`. Avoid synonyms the glossary explicitly rejects.
 
 ## Flag ADR conflicts
 

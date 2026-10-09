@@ -1,5 +1,6 @@
 ---
 name: playwright-tester
+slash: true
 description: >
   Automated UI testing using Playwright's native test runner. Writes persistent .spec.ts test files,
   runs them for free via `npx playwright test`, and fixes failures automatically. Use this skill whenever

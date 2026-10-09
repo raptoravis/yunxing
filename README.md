@@ -241,6 +241,7 @@ Skills I use daily for code work.
 - **[resolving-merge-conflicts](./skills/engineering/resolving-merge-conflicts/SKILL.md)**: Work through an in-progress git merge or rebase conflict hunk by hunk, resolving by intent traced to each side's primary source, then finish the operation, never `--abort`.
 - **[wizard](./skills/engineering/wizard/SKILL.md)**: Generate an interactive bash wizard that walks a human through steps only they can perform: provisioning infrastructure, setting up credentials or CI secrets, walking an unfamiliar third-party dashboard, or running a one-off migration or cutover.
 - **[report-from-commits](./skills/engineering/report-from-commits/SKILL.md)**: Turn git history since an exact date into a copy-pastable, non-technical report grouped by feature. Use for client updates, stakeholder recaps, or progress reports. Refuses to guess dates.
+- **[playwright-tester](./skills/engineering/playwright-tester/SKILL.md)**: Automated UI testing with Playwright's native runner: writes persistent `.spec.ts` files, runs them natively at zero AI tokens, and fixes failures in an automated loop.
 
 ### Productivity
 

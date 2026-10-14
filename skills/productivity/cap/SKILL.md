@@ -19,9 +19,10 @@ Stage all changes (tracked and untracked) with `git add -A`.
 
 ## 3. Commit
 
-Generate a concise, single-line commit message in the repo's prevailing style. Base it on `git diff --cached` content: summarize the *what*, not the *how*. If the change is too broad for one line, ask the user for the commit message.
+Commit the staged changes (step 2 already staged everything):
 
-Run `git commit -m "<message>"`.
+- **Running under omp** (your system prompt identifies you as omp's coding assistant): run `omp commit --no-changelog`. omp generates the message and commits using its configured `commit` model role (e.g. `deepseek-flash`); do not write the message yourself.
+- **Otherwise** (Claude Code, Codex, Cursor, Grok, opencode, etc.): generate a concise, single-line commit message in the repo's prevailing style. Base it on `git diff --cached` content: summarize the *what*, not the *how*. If the change is too broad for one line, ask the user for the commit message. Then run `git commit -m "<message>"`.
 
 ## 4. Push
 

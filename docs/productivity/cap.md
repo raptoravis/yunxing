@@ -10,6 +10,8 @@ You invoke this by typing `/cap`: the agent won't reach for it on its own. Reach
 
 `cap` runs a single loop: **commit → push → (if rejected) pull → merge → (if conflicts) resolve → push**. It repeats until the push succeeds or there is nothing left to commit. Each stage gates on the one before it: push only after commit, pull only after rejection, resolve only on conflict.
 
+The commit step is agent-aware: under omp it delegates to `omp commit --no-changelog`, which generates the message with the configured `commit` model role (e.g. `deepseek-flash`); under other agents it writes a single-line conventional message and runs `git commit` directly.
+
 Conflict resolution follows the [`/resolving-merge-conflicts`](https://aihero.dev/skills-resolving-merge-conflicts) discipline: understand each side's intent from its commit history, resolve hunk by hunk preserving both intents where possible, run the project's checks, and complete the merge, never `--abort`.
 
 ## Common questions

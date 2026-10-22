@@ -24,7 +24,7 @@ If you want to keep up with changes to these skills, and any new ones I create, 
 
 ## Installation (30-second setup)
 
-Two ways in, two philosophies. **The native plugin integrations** install the whole set as a managed bundle that updates when a new version ships: you subscribe rather than fork. **[skills.sh](https://skills.sh/mattpocock/skills)** copies editable skill files into your project, so you can hack on them and make them your own. Pick one: installing both leaves you with every skill twice.
+A plugin updates itself. [skills.sh](https://skills.sh/mattpocock/skills) copies editable files into your project, and you update them by hand. Pick one per agent, because installing both gives you every skill twice.
 
 ### 1. Get the skills
 
@@ -54,6 +54,40 @@ claude plugin install yunxing@yunxing
 codex plugin marketplace add raptoravis/yunxing
 codex plugin add yunxing@yunxing
 ```
+
+</details>
+
+<details>
+<summary><strong>GitHub Copilot</strong> (CLI and VS Code)</summary>
+
+```bash
+copilot plugin marketplace add raptoravis/yunxing
+copilot plugin install yunxing@yunxing
+```
+
+Then, once, add to `~/.copilot/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "raptoravis": { "source": { "source": "github", "repo": "raptoravis/yunxing" }, "autoUpdate": true }
+  }
+}
+```
+
+In VS Code, run **Chat: Install Plugin From Source** and enter `https://github.com/raptoravis/yunxing`. It updates daily.
+
+</details>
+
+<details>
+<summary><strong>Gemini CLI</strong> (manual updates)</summary>
+
+```bash
+gemini skills install https://github.com/raptoravis/yunxing.git --path skills/engineering
+gemini skills install https://github.com/raptoravis/yunxing.git --path skills/productivity
+```
+
+Re-run both commands to update.
 
 </details>
 

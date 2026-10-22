@@ -5,6 +5,8 @@ disable-model-invocation: true
 slash: true
 ---
 
+Before stating what a skill does or recommending a step be skipped, read that skill's SKILL.md: the summaries here are for orientation only.
+
 # Ask Matt
 
 You don't remember every skill, so ask.

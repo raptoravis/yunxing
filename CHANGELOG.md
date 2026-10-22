@@ -1,5 +1,53 @@
 # yunxing
 
+## 1.9.0
+
+### Minor Changes
+
+- [`6728a02`](https://github.com/mattpocock/skills/commit/6728a02e69217b4e43bba7d0750c9b71b61db689) Thanks [@raptoravis](https://github.com/raptoravis)! - Add DeepSeek Harness (DSH) bundle support so the repo installs as a dsh plugin: the install block adds the bundle to every profile under `$DSH_HOME/profiles`.
+
+- [`ad78f69`](https://github.com/mattpocock/skills/commit/ad78f69ef068c1bf1dad44803a8bac8a0be7d386) Thanks [@raptoravis](https://github.com/raptoravis)! - Add OpenCode plugin support so the repo installs via `opencode plugin --global "yunxing@git+https://github.com/raptoravis/yunxing.git"`, replacing the `skills.paths` link. Register promoted skills as custom commands so `/cap`, `/ask-matt`, and the other skill commands appear in the OpenCode 1.x slash catalog.
+
+- [`c33593e`](https://github.com/mattpocock/skills/commit/c33593e8270c4067595e3c3d409036d9224e1e5b) Thanks [@raptoravis](https://github.com/raptoravis)! - Add OpenCode 2.x support to the plugin. 2.x drops the `config` hook, so `.opencode/plugins/yunxing.mjs` now registers the promoted skills through the 2.x `skill` and `command` transforms in `setup`, mapping `disable-model-invocation: true` to `autoinvoke: false`, while keeping the 1.x `config` hook (`skills.paths` plus `config.command`) reachable through the `server()` export.
+
+### Patch Changes
+
+- `ask-matt` now reads a skill's `SKILL.md` before stating what it does or recommending a step be skipped, instead of trusting its own one-line summaries ([#614](https://github.com/mattpocock/skills/issues/614)).
+
+- `chief-of-staff` now keeps its memory in an LLM wiki (an `index.md` plus one page per topic, maintained through ingest, query and lint) and writes it as a historical record: every claim is dated, and every claim about code cites the commit it was true at.
+
+- `code-review` now searches the repo for standards files and always hands `CODING_STANDARDS.md` / `CONTRIBUTING.md` to the Standards sub-agent ([#1065](https://github.com/mattpocock/skills/issues/1065)), runs both sub-agents in the foreground and uses their returned reports ([#1073](https://github.com/mattpocock/skills/issues/1073)), and resolves the issue tracker through the provided tracker doc instead of a hard-coded path ([#937](https://github.com/mattpocock/skills/issues/937)).
+
+- `diagnosing-bugs` Phase 5 now has the agent `diff` a forced mutation against a pristine copy before trusting the red, so an edit that silently changed nothing can't pass as a failing test ([#955](https://github.com/mattpocock/skills/issues/955)).
+
+- [`72740c0`](https://github.com/mattpocock/skills/commit/72740c0e9dbfa405f23f0f62f3f3c1e202b77e50) Thanks [@raptoravis](https://github.com/raptoravis)! - Install the dsh bundle into every profile on the machine instead of one hardcoded profile. dsh keeps each profile in its own directory, so a session booted from a profile the bundle never reached listed no yunxing skills; the install block now loops over `$DSH_HOME/profiles`, and `.dsh/INSTALL.md` says why, alongside a one-profile form, the pinned-tag and local-link variants, and a `--dump-config` check.
+
+- [`8b6170a`](https://github.com/mattpocock/skills/commit/8b6170a78f0a43613f8a7edd6dcc01f764abd00e) Thanks [@raptoravis](https://github.com/raptoravis)! - Fixed the GitHub tracker template's external-PR listing, which failed on `authorAssociation` ([#468](https://github.com/mattpocock/skills/issues/468), thanks @lofi-coding). Re-run `/setup-matt-pocock-skills` to refresh `.yunxing/agents/issue-tracker.md`.
+
+- `grilling` words each question so "yes" accepts the recommended answer, so agreeing never means answering "no" ([#706](https://github.com/mattpocock/skills/issues/706)).
+
+- [`8b6170a`](https://github.com/mattpocock/skills/commit/8b6170a78f0a43613f8a7edd6dcc01f764abd00e) Thanks [@raptoravis](https://github.com/raptoravis)! - `handoff` now names where the OS temp directory is (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), so agents stop guessing ([#272](https://github.com/mattpocock/skills/issues/272)).
+
+- [`8b6170a`](https://github.com/mattpocock/skills/commit/8b6170a78f0a43613f8a7edd6dcc01f764abd00e) Thanks [@raptoravis](https://github.com/raptoravis)! - `implement` now calls the Skill tool for `tdd` and `code-review` instead of bare `/skill` prose, matching [#878](https://github.com/mattpocock/skills/issues/878).
+
+- `implement` fetches a passed ticket reference from the issue tracker and states its title before starting, asking when the reference is ambiguous ([#700](https://github.com/mattpocock/skills/issues/700)).
+
+- `setup-matt-pocock-skills` now creates missing triage labels on GitHub/GitLab ([#616](https://github.com/mattpocock/skills/issues/616)), fixes the GitLab template's `glab` commands ([#635](https://github.com/mattpocock/skills/issues/635)), reads GitHub issues with `--json` so labels and body come through ([#733](https://github.com/mattpocock/skills/issues/733)), and names the "Label in our tracker" column in `triage-labels.md` ([#801](https://github.com/mattpocock/skills/issues/801)). Re-run `/setup-matt-pocock-skills` to refresh `.yunxing/agents/`.
+
+- `tdd` now gives each proposed seam a one-line note on what it catches and what it misses, so choosing between seams is no longer a guess ([#607](https://github.com/mattpocock/skills/issues/607)).
+
+- `teach` quizzes vary which position holds the correct answer ([#611](https://github.com/mattpocock/skills/issues/611)).
+
+- `teach` writes its workspace to the directory you ran it in, not the skill folder ([#377](https://github.com/mattpocock/skills/issues/377)).
+
+- [`8b6170a`](https://github.com/mattpocock/skills/commit/8b6170a78f0a43613f8a7edd6dcc01f764abd00e) Thanks [@raptoravis](https://github.com/raptoravis)! - `to-tickets` makes each ticket a sub-issue of its source issue (the GitHub tracker template now gives the command), and omits `## Blocked by` when blockers are native edges. Re-run `/setup-matt-pocock-skills` to refresh `.yunxing/agents/issue-tracker.md`. Thanks @richardwhatever ([#554](https://github.com/mattpocock/skills/issues/554)) and @adamslowe ([#262](https://github.com/mattpocock/skills/issues/262)).
+
+- `wayfinder` no longer labels maps or tickets `ready-for-agent` ([#518](https://github.com/mattpocock/skills/issues/518)), writes cross-references only with real issue ids ([#507](https://github.com/mattpocock/skills/issues/507)), opens no PR from research branches ([#576](https://github.com/mattpocock/skills/issues/576)), and resolves each ticket as the type its label names ([#625](https://github.com/mattpocock/skills/issues/625)). Thanks @jcwayne, @baob, @rynz and @sponge-b0b.
+
+- `wizard` template fixes: `_existing` decodes a double-quoted `.env` value, so Enter-keeps-current no longer stores the quotes ([#1220](https://github.com/mattpocock/skills/issues/1220)); stages run inside `run_wizard`, so editing the script mid-run can't kill it ([#1142](https://github.com/mattpocock/skills/issues/1142)); `_clear` falls back to ANSI when `tput clear` fails ([#1081](https://github.com/mattpocock/skills/issues/1081)); `write_env` sets the shell variable too ([#1041](https://github.com/mattpocock/skills/issues/1041)); drop the unused `RED` ([#1003](https://github.com/mattpocock/skills/issues/1003)).
+
+- `wizard` template fixes: `ask` uses Readline so arrow keys move the cursor ([#741](https://github.com/mattpocock/skills/issues/741)); `write_env` single-quotes values so spaces, `#`, `$` and quotes survive `source` and dotenv ([#770](https://github.com/mattpocock/skills/issues/770)); `open_url` prints the open-it-yourself warning when no browser opener exists ([#774](https://github.com/mattpocock/skills/issues/774)); `write_env` writes through a symlinked `.env` and keeps an existing file's mode ([#811](https://github.com/mattpocock/skills/issues/811)); `ask` and `ask_secret` fail at EOF instead of looping ([#852](https://github.com/mattpocock/skills/issues/852)).
+
 ## 1.3.1
 
 ### Patch Changes

@@ -5,6 +5,8 @@ disable-model-invocation: true
 slash: true
 ---
 
+If the user passes a ticket reference, fetch it from the issue tracker and state its title before starting. If the reference is ambiguous, ask.
+
 Implement the work described by the user in the spec or tickets.
 
 Call the Skill tool with "tdd" where possible, at pre-agreed seams.

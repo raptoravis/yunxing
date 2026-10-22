@@ -132,6 +132,8 @@ If an `## Agent skills` block already exists in `AGENTS.md`, update its contents
 
 The block:
 
+When Section B ran on GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`).
+
 ```markdown
 ## Agent skills
 

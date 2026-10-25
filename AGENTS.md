@@ -1,51 +1,37 @@
+# Agent Skills
+
 Skills are organized into bucket folders under `skills/`:
 
 - `engineering/`: daily code work
 - `productivity/`: daily non-code workflow tools
-- `misc/`: kept around but rarely used, not promoted
-- `in-progress/`: beta: public on purpose, feedback wanted, not shipped in the plugin
-- `deprecated/`: no longer used
 
-Every skill in `engineering/` or `productivity/` (the **promoted** buckets) must have a reference in the top-level `README.md` and an entry in the `skills` arrays of `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, and `.cursor-plugin/plugin.json`. Skills in `misc/`, `in-progress/`, and `deprecated/` must not appear in any of them.
+Every skill in these two promoted buckets must have a reference in the top-level `README.md`, an entry in the `skills` arrays of `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.grok-plugin/plugin.json`, a line in its bucket `README.md`, and a human-facing page at `docs/<bucket>/<skill-name>.md`.
 
-Install commands are copied verbatim from [.agents/install-block.md](./.agents/install-block.md). The repo is also its own single-plugin marketplace for five agent harnesses:
+The repo is its own single-plugin marketplace for six agent harnesses:
 
-- **Claude Code**: `.claude-plugin/plugin.json` + `.claude-plugin/marketplace.json`
-- **Codex**: `.codex-plugin/plugin.json` + `.agents/plugins/marketplace.json`
-- **Cursor**: `.cursor-plugin/plugin.json` + `.cursor-plugin/marketplace.json`
-- **OpenCode**: `.opencode/plugins/yunxing.mjs` (package.json `main` → plugin entry)
-- **DeepSeek Harness (dsh)**: `package.json`'s `dsh.bundle.patch` → `cordis.patch.yml`, a bundle whose `skill-filesystem` row points `customSkillDirs` at the promoted buckets via `.dsh/plugin.mjs`
+- **Claude Code**: `.claude-plugin/plugin.json` plus `.claude-plugin/marketplace.json`
+- **Codex**: `.codex-plugin/plugin.json` plus `.agents/plugins/marketplace.json`
+- **Cursor**: `.cursor-plugin/plugin.json` plus `.cursor-plugin/marketplace.json`
+- **Grok Build**: `.grok-plugin/plugin.json` plus `.grok-plugin/marketplace.json`
+- **OpenCode**: `.opencode/plugins/yunxing.mjs` (package.json `main` points at the plugin entry)
+- **DeepSeek Harness (dsh)**: `package.json`'s `dsh.bundle.patch` points at `cordis.patch.yml`, a bundle whose `skill-filesystem` row points `customSkillDirs` at the promoted buckets via `.dsh/plugin.mjs`
 
-When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s. The dsh bundle's version is `package.json`'s own `version`, so it needs no separate sync. When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, all three plugin manifests' `skills` arrays, and `.opencode/plugins/yunxing.mjs`/`.dsh/plugin.mjs` when their promoted bucket paths change. Run `claude plugin validate . --strict` after touching either Claude manifest. Why a Claude plugin but not (yet) a Codex one lives in [.agents/adr/0002-ship-as-a-claude-code-plugin.md](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+Install commands live in the top-level `README.md`. Do not duplicate them anywhere else.
 
-Each skill entry in the top-level `README.md` must link the skill name to its `SKILL.md`.
+When bumping the release version, keep `.claude-plugin/plugin.json`, `.codex-plugin/plugin.json`, `.cursor-plugin/plugin.json`, `.grok-plugin/plugin.json`, and `.cursor-plugin/marketplace.json`'s `metadata.version` in sync with `package.json`'s version. `scripts/sync-plugin-version.mjs` copies it and `--check` verifies it. The dsh bundle uses `package.json`'s own version, so it needs no separate sync.
 
-Each bucket folder has a `README.md` that lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`. The promoted buckets' `README.md`s and the top-level `README.md` group entries into **User-invoked** and **Model-invoked**; non-promoted bucket `README.md`s (`misc/`, `in-progress/`) use a flat list.
+When a skill is added, removed, renamed, or moved between buckets, update the top-level `README.md`, the bucket `README.md`, all four plugin manifests' `skills` arrays, and the docs page. The OpenCode and dsh plugins discover whole buckets, so they need a change only when a bucket path changes. Run `claude plugin validate . --strict` after touching either Claude manifest.
 
-Skills in `engineering/` and `productivity/` also have a human-facing docs page at `docs/<bucket>/<skill-name>.md` (the docs tree mirrors those two bucket folders under `skills/`). The published URL is `https://aihero.dev/skills-<skill-name>` regardless of bucket: the docs path is repo organisation only. When you add, rename, or change the behaviour of a skill in `engineering/` or `productivity/`, create or re-sync its docs page following [.agents/writing-docs.md](./.agents/writing-docs.md). A finished page carries four sections: **What it does**, **When to reach for it**, **Common questions**, and **It's working if**. `writing-docs.md` holds the template, the section order, and where to hunt for the questions. Skills in the non-promoted buckets (`misc/`, `in-progress/`, `deprecated/`) get **no** docs page. The one exception is a promoted skill removed outright: its page stays, marked archived (see `writing-docs.md`).
+Each bucket `README.md` groups entries into **User-invoked** and **Model-invoked**, with the skill name linked to its `SKILL.md` and a one-line description.
 
-Every `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable). See [.agents/invocation.md](./.agents/invocation.md).
+Each `SKILL.md` is either user-invoked (`disable-model-invocation: true` plus `policy.allow_implicit_invocation: false` in `agents/openai.yaml`, reachable only by the human) or model-invoked (model- or user-reachable).
 
-[`ask-matt`](./skills/engineering/ask-matt/SKILL.md) is the router that maps every user-reachable skill and how they relate. The same trigger that re-syncs a docs page applies to it: whenever you add, rename, remove, or change how a user-reachable skill fits the flows, re-read `ask-matt`'s `SKILL.md` and update it so the map stays accurate: a new skill it never mentions, or a stale one it still routes to, is a router that lies.
+Docs pages carry four sections: **What it does**, **When to reach for it**, **Common questions**, and **It's working if**.
 
-Use each harness's plugin mechanism as the sole installation and update path for this repository in Claude Code, Codex, Cursor, OpenCode, and DeepSeek Harness (dsh). `scripts/link-skills.sh` is legacy tooling and must not be run; do not create repository skill links in `~/.claude/skills`, `~/.agents/skills`, `~/.cursor/skills`, `~/.config/opencode/skills`, or `~/.dsh/skills`.
+No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
 
-No em-dashes anywhere in this repo's prose (`SKILL.md` files, docs, `README.md`, `CHANGELOG.md`, ADRs, changesets, code comments). Where a sentence reaches for one, rewrite it instead with a comma, colon, period, parentheses, or a conjunction, whichever the sentence actually wants; never do a blind character substitution.
+Use each harness's plugin mechanism as the sole installation and update path. Do not create repository skill links in `~/.claude/skills`, `~/.agents/skills`, `~/.cursor/skills`, `~/.config/opencode/skills`, or `~/.dsh/skills`.
 
-## Agent skills
+## Tests
 
-### Issue tracker
-
-Issues and PRDs are tracked in GitHub Issues. See `.yunxing/agents/issue-tracker.md`.
-
-### Triage labels
-
-Use the five default triage labels. See `.yunxing/agents/triage-labels.md`. Issues are judged against [`SCOPE.md`](./SCOPE.md).
-
-### Domain docs
-
-This is a single-context repo. See `.yunxing/agents/domain.md`.
-
-### Image understanding
-
-For images, screenshots, diagrams, charts, mockups, and other visual-analysis tasks, prefer the model's native vision capability. Do not prioritize or proactively invoke the `vision` skill when the model can inspect the image directly. Use the `vision` skill only when the user explicitly requests it, native vision is unavailable or insufficient, or the task specifically requires an external vision model or endpoint.
+Run `npm test` for the OpenCode plugin tests, and `node scripts/sync-plugin-version.mjs --check` to verify manifest versions.

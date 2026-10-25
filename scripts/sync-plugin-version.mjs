@@ -22,6 +22,10 @@ const manifestTargets = [
     getVersion: (manifest) => manifest.version,
   },
   {
+    manifestPath: join(repo, ".grok-plugin", "plugin.json"),
+    getVersion: (manifest) => manifest.version,
+  },
+  {
     manifestPath: join(repo, ".cursor-plugin", "marketplace.json"),
     getVersion: (manifest) => manifest.metadata?.version,
   },

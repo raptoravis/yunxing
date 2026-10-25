@@ -1,8 +1,8 @@
 {
   "name": "yunxing",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Yunxing agent skills, forked from mattpocock/skills",
+  "description": "Yunxing agent skills: raw requirement capture, external vision, git-history reports, and Playwright UI testing",
   "main": ".opencode/plugins/yunxing.mjs",
   "exports": {
     ".": "./.opencode/plugins/yunxing.mjs",

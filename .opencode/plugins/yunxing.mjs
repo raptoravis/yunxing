@@ -77,7 +77,7 @@ function skillTemplate(skill) {
 
 // OpenCode 2.x exposes two plugin transforms instead of a config hook. A
 // skill registered on `ctx.skill` is model-facing; a command of the same name
-// registered on `ctx.command` is the visible slash command (/cap, /ask-matt).
+// registered on `ctx.command` is the visible slash command (/cap, /new-raw).
 // Registering both mirrors the 1.x dual registration below.
 async function setup(ctx) {
   const skills = await collectSkills(promotedDirs)

@@ -4,14 +4,14 @@
     "name": "raptoravis"
   },
   "metadata": {
-    "description": "Yunxing agent skills, forked from mattpocock/skills, as an installable Cursor plugin.",
-    "version": "1.9.0"
+    "description": "Yunxing agent skills as an installable Cursor plugin.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "yunxing",
       "source": ".",
-      "description": "Yunxing agent skills (grilling, spec/ticket flows, TDD, code review, domain modelling and more)."
+      "description": "Yunxing agent skills: requirement capture, external vision, git-history reports, and Playwright UI testing."
     }
   ]
 }

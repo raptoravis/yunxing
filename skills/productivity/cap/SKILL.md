@@ -50,7 +50,7 @@ Go back to step 4 and push.
 
 ## 6. Resolve conflicts
 
-Follow the `/resolving-merge-conflicts` discipline:
+Resolve each conflict by intent:
 
 1. List the conflicted files with `git diff --name-only --diff-filter=U`.
 2. For each conflicted file, read the conflict markers and understand **both sides' intent**: check `git log` for the commits that introduced each side.

@@ -12,7 +12,7 @@ You invoke this by typing `/cap`: the agent won't reach for it on its own. Reach
 
 The commit step is agent-aware: under omp it delegates to `omp commit --no-changelog`, which generates the message with the configured `commit` model role (e.g. `deepseek-flash`); under other agents it writes a single-line conventional message and runs `git commit` directly.
 
-Conflict resolution follows the [`/resolving-merge-conflicts`](https://aihero.dev/skills-resolving-merge-conflicts) discipline: understand each side's intent from its commit history, resolve hunk by hunk preserving both intents where possible, run the project's checks, and complete the merge, never `--abort`.
+Conflict resolution follows an intent-first discipline: understand each side's intent from its commit history, resolve hunk by hunk preserving both intents where possible, run the project's checks, and complete the merge, never `--abort`.
 
 ## Common questions
 
@@ -32,4 +32,4 @@ It commits the current change set as a whole. Review the working tree first when
 
 ## Where it fits
 
-`cap` is a **reach-for-it-anytime standalone**: it wraps the git commit-push-pull cycle into one command. It pairs with [`/resolving-merge-conflicts`](https://aihero.dev/skills-resolving-merge-conflicts), which it delegates to when conflicts arise. When you're unsure which skill fits the moment, [`/ask-matt`](https://aihero.dev/skills-ask-matt) routes you.
+`cap` is a **reach-for-it-anytime standalone**: it wraps the git commit-push-pull cycle into one command.

@@ -24,7 +24,7 @@ uv run "${SKILL_DIR}/scripts/vision.py" [--provider <name>] <image_path> <prompt
 When `--provider` is omitted, the provider resolves by: `--provider` flag → `VISION_PROVIDER` env → first API key found in `~/.env` (by file line order) → `doubao`.
 
 > The same `uv run` command works in Git Bash and PowerShell on Windows, and on macOS/Linux.
-> `${SKILL_DIR}` resolves at runtime. If your harness doesn't set it, use the absolute path to this skill's directory (e.g. `~/.claude/skills/vision` after `scripts/link-skills.sh`).
+> `${SKILL_DIR}` resolves at runtime. If your harness doesn't set it, use the absolute path to this skill's directory inside the installed plugin.
 
 ## First-time setup
 

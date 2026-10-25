@@ -43,9 +43,9 @@ test("registers promoted skills as visible OpenCode 1.x slash commands", async (
 
   await hooks.config(config)
 
-  assert.ok(config.command?.["ask-matt"], "missing /ask-matt command")
+  assert.ok(config.command?.["new-raw"], "missing /new-raw command")
   assert.ok(config.command?.cap, "missing /cap command")
-  assert.match(config.command["ask-matt"].template, /# Ask Matt/)
+  assert.match(config.command["new-raw"].template, /# Capture a Raw Requirement/)
   assert.match(config.command.cap.template, /# cap: commit & push/)
   assert.doesNotMatch(config.command.cap.template, /^---/)
   assert.match(config.command.cap.template, /Base directory for this skill:/)
@@ -53,7 +53,6 @@ test("registers promoted skills as visible OpenCode 1.x slash commands", async (
 
   const promoted = [...(await skillNames("engineering")), ...(await skillNames("productivity"))]
   assert.deepEqual(Object.keys(config.command).sort(), promoted.sort())
-  assert.equal(config.command["git-guardrails-claude-code"], undefined)
 })
 
 test("preserves a user-defined command with the same name (1.x)", async () => {
@@ -82,6 +81,10 @@ test("registers promoted skills and commands through the OpenCode 2.x transforms
   assert.match(capSkill.content, /# cap: commit & push/)
   assert.doesNotMatch(capSkill.content, /^---/)
   assert.ok(path.isAbsolute(capSkill.path))
+
+  const modelSkill = skills.find((s) => s.id === "report-from-commits")
+  assert.ok(modelSkill, "missing report-from-commits skill")
+  assert.equal(modelSkill.autoinvoke, true, "report-from-commits is model-invoked")
 
   const capCommand = commands.find((c) => c.name === "cap")
   assert.ok(capCommand, "missing /cap command")

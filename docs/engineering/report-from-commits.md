@@ -12,24 +12,8 @@ Type `/report-from-commits`, or the agent reaches for it automatically when you 
 | --- | --- |
 | You want a non-technical update from git history for a client, stakeholder, or team | `report-from-commits` |
 | You want engineering release notes, a developer changelog, or commit-by-commit detail | Not this skill: write the changelog by hand or use a changelog tool |
-| You want a code review of the changes | [code-review](https://aihero.dev/skills-code-review) |
+| You want a code review of the changes | Not this skill: review the diff directly |
 | You have no start date at all, not even a relative range | Use it anyway: the skill defaults to the last week |
-
-## The feature group
-
-The skill's defining idea is **feature-grouped, not commit-by-commit**. A feature spread across eight commits produces one section with two or three bullets, not eight sections. Five unrelated commits touching the same directory are still grouped by what they accomplish, not by where the files live.
-
-It works because the skill inspects before it writes. The first pass runs `collect_git_changes.py`, which excludes merge commits and commits with no changed files, then pulls every remaining commit author, subject, scope, and touched file into one JSON document. Scopes from conventional commits (`feat(checkout):`, `fix(payment):`) and repeated top-level paths are the strongest grouping signals. When those are not enough, the skill inspects a few representative diffs, but only enough to group the work, never a full audit.
-
-The output contract is tight by design:
-
-- One-line date and effective-change commit-count intro in Chinese, followed by every involved author's commit count and percentage
-- Short feature headings in Chinese, each including `提交者：<姓名>` in the same heading
-- 2-3 outcome-first bullets per section, each one sentence, in Chinese
-- No hashes, no filenames, no branch names, no refactor jargon
-- Optional "稳定性与基础设施" section for internal work worth mentioning
-
-When there were no meaningful changes in the window, the report says so in one sentence. A padded report is worse than an honest one.
 
 ## Common questions
 
@@ -51,7 +35,7 @@ The opening line lists every author represented by the collected effective-chang
 
 **Why not just pipe `git log` into an LLM and ask for a summary?**
 
-That is the obvious shortcut, and it fails in two ways. First, raw `git log` output mixed into a prompt with the instruction "write a client update" produces a report that drifts: some bullets are verbatim commit subjects with the jargon still in them, others invent impact the diff doesn't support. Second, the [context window](https://www.aihero.dev/ai-coding-dictionary/context-window) cost is high: a hundred commits with full diffs is a large prompt. `collect_git_changes.py` reduces each commit to its author, subject, scope, date, and touched files, the structured summary the skill needs to group the work, not the full source.
+That is the obvious shortcut, and it fails in two ways. First, raw `git log` output mixed into a prompt with the instruction "write a client update" produces a report that drifts: some bullets are verbatim commit subjects with the jargon still in them, others invent impact the diff doesn't support. Second, the context-window cost is high: a hundred commits with full diffs is a large prompt. `collect_git_changes.py` reduces each commit to its author, subject, scope, date, and touched files, the structured summary the skill needs to group the work, not the full source.
 
 ## It's working if
 
@@ -67,8 +51,3 @@ That is the obvious shortcut, and it fails in two ways. First, raw `git log` out
 ## Where it fits
 
 `report-from-commits` is a **standalone** skill: reach for it any time you need to turn git history into prose, independent of the build and review chains.
-
-- [code-review](https://aihero.dev/skills-code-review) is the closest neighbour: both inspect git history, but `code-review` checks the code against standards and a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), while `report-from-commits` produces audience-facing prose. One is for engineers; the other is for everyone else.
-- [research](https://aihero.dev/skills-research) runs in a background agent and leaves a cited Markdown file, a different kind of report, but the same discipline of inspecting before writing.
-
-[ask-matt](https://aihero.dev/skills-ask-matt) routes across the whole set when you are unsure which skill the situation wants.

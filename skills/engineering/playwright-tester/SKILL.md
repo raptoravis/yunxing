@@ -1,14 +1,11 @@
 ---
 name: playwright-tester
 slash: true
+disable-model-invocation: true
 description: >
-  Automated UI testing using Playwright's native test runner. Writes persistent .spec.ts test files,
-  runs them for free via `npx playwright test`, and fixes failures automatically. Use this skill whenever
-  the user wants to test a web app, check if a frontend works, run UI tests, verify form submissions,
-  test browser interactions, do end-to-end testing, stress test a website, or validate that recent
-  changes didn't break anything. Also triggers for "run my tests", "check the app in a browser",
-  "does this page work", "test the happy path", or "find UI bugs". This skill is the go-to for any
-  browser-based testing: prefer it over manually driving browsers or using screenshot-based approaches.
+  Automated UI testing with Playwright's native test runner: writes persistent .spec.ts regression
+  tests, runs them via `npx playwright test` at zero AI tokens, and fixes failures. Explicitly invoked
+  for a persistent, repeatable test suite.
 ---
 
 # Playwright Tester

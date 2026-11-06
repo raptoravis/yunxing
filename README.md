@@ -128,11 +128,11 @@ Pick the skills you want and which coding agents to install them on.
 
 - **[new-raw](./skills/engineering/new-raw/SKILL.md)**: Capture a raw requirement exactly as given, with no clarification or dialogue. Files it as a GitHub or GitLab issue when the matching CLI is available, otherwise as a local Markdown file.
 - **[vision](./skills/engineering/vision/SKILL.md)**: Send an image to a configured external vision provider when native vision is not available or not sufficient.
+- **[playwright-tester](./skills/engineering/playwright-tester/SKILL.md)**: Automated UI testing with Playwright's native runner: explicitly invoked, writes persistent `.spec.ts` regression tests, runs them at zero AI tokens, and fixes failures.
 
 **Model-invoked**
 
 - **[report-from-commits](./skills/engineering/report-from-commits/SKILL.md)**: Turn git history since an exact date into a copy-pastable, non-technical report grouped by feature, in Chinese.
-- **[playwright-tester](./skills/engineering/playwright-tester/SKILL.md)**: Automated UI testing with Playwright's native runner: writes persistent `.spec.ts` files, runs them at zero AI tokens, and fixes failures in an automated loop.
 
 ### Productivity
 

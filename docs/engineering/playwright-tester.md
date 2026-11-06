@@ -6,9 +6,9 @@ The tests are persistent. They are ordinary `.spec.ts` files that live in the re
 
 ## When to reach for it
 
-Type `/playwright-tester`, or the agent reaches for it automatically when a task fits: you want to test a web app, check that a frontend works, run UI tests, verify a form, do end-to-end testing, or confirm recent changes did not break anything.
+Type `/playwright-tester` when you want a persistent, repeatable regression suite: end-to-end tests, form validation, happy-path coverage, or a check that recent changes did not break anything. The skill is explicit-only, so the agent does not reach for it on its own.
 
-Reach for it when you want the browser exercised by a real test runner. For a concrete unit-level behaviour, write the unit test directly instead.
+For a concrete unit-level behaviour, write the unit test directly.
 
 ## Prerequisites
 
@@ -26,6 +26,7 @@ A unit test pins one behaviour at a pre-agreed seam. `playwright-tester` is brow
 
 ## It's working if
 
+- The skill runs only on an explicit `/playwright-tester` invocation.
 - Persistent `.spec.ts` files appear under `tests/` or `e2e/` and survive the session.
 - Each failure is labelled a test bug or an app bug, and only the right side is fixed.
 - The rerun command and its output are reported even when everything passes.

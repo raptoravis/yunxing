@@ -1,6 +1,6 @@
 {
   "name": "yunxing",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Yunxing agent skills: raw requirement capture, external vision, git-history reports, and Playwright UI testing.",
   "author": {
     "name": "raptoravis",

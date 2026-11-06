@@ -1,5 +1,11 @@
 # yunxing
 
+## 2.1.0
+
+### Minor Changes
+
+- Make `playwright-tester` user-invoked: it now runs only on an explicit `/playwright-tester` invocation or an explicit test intent, instead of the model auto-triggering it.
+
 ## 2.0.0
 
 ### Major Changes

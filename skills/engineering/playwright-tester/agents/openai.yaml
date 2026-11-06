@@ -1,0 +1,5 @@
+interface:
+  display_name: "Playwright Tester"
+  short_description: "Write persistent Playwright regression tests and run them natively"
+policy:
+  allow_implicit_invocation: false
